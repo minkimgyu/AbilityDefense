@@ -41,7 +41,8 @@ public class AddressableLoader : MonoBehaviour
 
     public Dictionary<CardData.Name, CardData> CardDataAssets { get; private set; }
     public Dictionary<ISoundPlayable.SoundName, AudioClip> SoundAssets { get; private set; }
-    //public Dictionary<Effect.Name, Effect> EffectAssets { get; private set; }
+    public Dictionary<IEffect.Name, IEffect> EffectAssets { get; private set; }
+
     public Dictionary<ISpawnableUI.Name, ISpawnableUI> SpawnableUIAssets { get; private set; }
     public Dictionary<CardData.Name, Sprite> CardIconSprites { get; private set; }
 

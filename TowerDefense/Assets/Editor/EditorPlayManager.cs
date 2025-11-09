@@ -1,8 +1,6 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 // 에디터 전용
 [InitializeOnLoad]
@@ -26,11 +24,17 @@ public static partial class EditorPlayManager
                         allScenes += scene.path + ";";
                 }
                 EditorPrefs.SetString("EditorPlayManager.OpenScenes", allScenes);
-                break;
 
-            case PlayModeStateChange.EnteredPlayMode:
-                UnityEngine.SceneManagement.SceneManager.LoadScene("AddressableScene");
+                // PlayMode 시작 시 AddressableScene으로 강제 지정
+                var playScene = AssetDatabase.LoadAssetAtPath<SceneAsset>("Assets/Scenes/AddressableScene.unity");
+                if (playScene != null)
+                {
+                    EditorSceneManager.playModeStartScene = playScene;
+                }
+
                 break;
+            //case PlayModeStateChange.EnteredPlayMode:
+            //    break;
         }
     }
 }
