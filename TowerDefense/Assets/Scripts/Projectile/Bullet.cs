@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour, IProjectile
         return Vector3.Distance(transform.position, targetPos);
     }
 
-    public void Fire(ITarget target, IDamageable damageable)
+    public void Fire(Vector3 startPos, Quaternion startQuaternion, ITarget target, IDamageable damageable)
     {
         float distance = GetDistanceBetweenTarget(target.GetTransform().position);
         if (distance > _hitDistance)
@@ -26,5 +26,10 @@ public class Bullet : MonoBehaviour, IProjectile
             // 데미지 주기
             damageable.SetDamage(_damage);
         }
+    }
+
+    public GameObject GetObject()
+    {
+        return gameObject;
     }
 }

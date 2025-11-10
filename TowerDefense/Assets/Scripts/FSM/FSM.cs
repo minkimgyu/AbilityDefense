@@ -45,4 +45,11 @@ public class FSM<State>
         _currentState = state;
         _states[_currentState].OnStateEnter(areaData);
     }
+
+    public void SetState(State state, CardData areaData, Vector3 resultPos)
+    {
+        _states[_currentState].OnStateExit();
+        _currentState = state;
+        _states[_currentState].OnStateEnter(areaData, resultPos);
+    }
 }

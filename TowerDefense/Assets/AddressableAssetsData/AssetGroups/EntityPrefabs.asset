@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: EntityPrefabs
+  m_EditorClassIdentifier: 
+  m_GroupName: EntityPrefabs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 13e5b0e8d803cd741a062186551272fa
+  m_SerializeEntries:
+  - m_GUID: 0a303e821b50c344cb7b8e658c113c63
+    m_Address: Gunner
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityPrefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 45a6c1346c0a29a41aa7455fd08ba5b3
+    m_Address: BulletTower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityPrefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b04d596e5288c5241893e421488cc362
+    m_Address: GuidedMissileTower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityPrefab
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6756547cc8410e04ba290c3f5c070e42, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a054deb6d09f847488c80e05d817b716, type: 2}
+    - {fileID: 11400000, guid: 2193ec15eb0376d4989d6a49204c7a5e, type: 2}

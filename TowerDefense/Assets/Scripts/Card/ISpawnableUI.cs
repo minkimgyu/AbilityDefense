@@ -9,5 +9,7 @@ public interface ISpawnableUI
         CardUI,
     }
 
+    virtual void Initialize(Sprite cardIcon, CardData cardData) { }
+
     GameObject GetObject();
 }

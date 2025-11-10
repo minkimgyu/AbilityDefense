@@ -1,6 +1,5 @@
 using FlowField;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,30 +16,9 @@ public class SearchAreaComponent
         _visited = new HashSet<Node>();
     }
 
-    public bool FindEmptyArea(Vector2Int idx, AreaData areaData, out Vector2Int resultIdx)
+    bool BFS(Node startNode, AreaData areaData, out Vector2Int resultIdx, out Vector3 resultPos)
     {
-        _queue.Clear();
-        _visited.Clear();
-
         bool isEmpty;
-
-        // 현 자리에 빈 공간이 있는지 확인
-        isEmpty = _gridComponent.IsEmptyArea(idx, areaData);
-        if (isEmpty == true) // 있다면 시작 위치 반환
-        {
-            resultIdx = idx;
-            return true;
-        }
-
-        Node startNode = null;
-
-        // 없다면 BFS 탐색 시작
-        startNode = _gridComponent.ReturnNode(idx);
-        if (startNode == null)
-        {
-            resultIdx = Vector2Int.zero;
-            return false;
-        }
 
         _queue.Enqueue(startNode);
         _visited.Add(startNode);
@@ -52,13 +30,13 @@ public class SearchAreaComponent
             for (int i = 0; i < node.NearNodes.Count; i++)
             {
                 if (node.NearNodes[i] == null) continue;
-                //if (node.NearNodes[i].CurrentState == Node.State.Block) continue;
                 if (_visited.Contains(node.NearNodes[i]) == true) continue;
 
                 isEmpty = _gridComponent.IsEmptyArea(node.NearNodes[i].Index, areaData);
                 if (isEmpty == true)
                 {
                     resultIdx = node.NearNodes[i].Index;
+                    resultPos = node.NearNodes[i].WorldPos;
                     return true;
                 }
 
@@ -67,7 +45,35 @@ public class SearchAreaComponent
             }
         }
 
-        resultIdx = Vector2Int.zero;
+        resultIdx = default;
+        resultPos = default;
         return false;
+    }
+
+    public bool FindEmptyArea(Vector2Int idx, AreaData areaData, out Vector2Int resultIdx, out Vector3 resultPos)
+    {
+        _queue.Clear();
+        _visited.Clear();
+
+        resultIdx = Vector2Int.zero;
+        resultPos = Vector3.zero;
+
+        // 시작 노드 설정
+        Node startNode = _gridComponent.ReturnNode(idx);
+        if (startNode == null) return false; // 실패 시 기본값 반환
+
+        // 현 자리에 빈 공간이 있는지 확인
+        bool isEmpty = _gridComponent.IsEmptyArea(idx, areaData);
+        if (isEmpty == true) // 있다면 시작 위치 반환
+        {
+            resultIdx = idx;
+            resultPos = startNode.WorldPos;
+            return true;
+        }
+
+        // BFS 탐색 시작
+        bool canFind = BFS(startNode, areaData, out resultIdx, out resultPos);
+        if (canFind == true) return true;
+        else return false;  // 실패 시 기본값 반환
     }
 }

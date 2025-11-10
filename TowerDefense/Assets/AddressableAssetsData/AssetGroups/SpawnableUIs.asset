@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Address: CardUI
     m_ReadOnly: 0
     m_SerializedLabels:
-    - SpawnableUI
+    - SpawnableUIPrefab
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6756547cc8410e04ba290c3f5c070e42, type: 2}

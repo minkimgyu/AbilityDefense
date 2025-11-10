@@ -22,7 +22,7 @@ public class TargetCaptureComponent : MonoBehaviour
     public event System.Action<Data> OnCaptureTarget;
     public event System.Action<Data> OnRemoveTarget;
 
-    public void InjectCaptureEvent(System.Action<Data> OnCaptureTarget, System.Action<Data> OnRemoveTarget)
+    public void AddCaptureEvent(System.Action<Data> OnCaptureTarget, System.Action<Data> OnRemoveTarget)
     {
         this.OnCaptureTarget = OnCaptureTarget;
         this.OnRemoveTarget = OnRemoveTarget;

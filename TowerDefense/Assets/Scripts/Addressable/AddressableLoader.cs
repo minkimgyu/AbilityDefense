@@ -13,9 +13,11 @@ public class AddressableLoader : MonoBehaviour
     public enum Label
     {
         CardJsonData,
+        EntityJsonData,
         CardIconSprite,
-        SpawnableUI,
+        SpawnableUIPrefab,
         Sound,
+        EntityPrefab,
     }
 
     HashSet<BaseLoader> _assetLoaders;
@@ -39,18 +41,29 @@ public class AddressableLoader : MonoBehaviour
         this.OnProgress = OnProgress;
     }
 
-    public Dictionary<CardData.Name, CardData> CardDataAssets { get; private set; }
-    public Dictionary<ISoundPlayable.SoundName, AudioClip> SoundAssets { get; private set; }
-    public Dictionary<IEffect.Name, IEffect> EffectAssets { get; private set; }
+    public Dictionary<IEffect.Name, GameObject> EffectAssets { get; private set; }
+    public Dictionary<ISpawnableUI.Name, GameObject> SpawnableUIPrefabAssets { get; private set; }
+    public Dictionary<IProjectile.Name, GameObject> ProjectilePrefabAssets { get; private set; }
+    public Dictionary<Entity.Name, GameObject> EntityPrefabAssets { get; private set; }
 
-    public Dictionary<ISpawnableUI.Name, ISpawnableUI> SpawnableUIAssets { get; private set; }
+
+    public Dictionary<CardData.Name, CardData> CardDataAssets { get; private set; }
+    public Dictionary<Entity.Name, EntityData> EntityDataAssets { get; private set; }
+
+
+
+    public Dictionary<ISoundPlayable.SoundName, AudioClip> SoundAssets { get; private set; }
     public Dictionary<CardData.Name, Sprite> CardIconSprites { get; private set; }
 
 
     public void Load(Action OnCompleted)
     {
         _assetLoaders.Add(new CardDataAssetLoader(Label.CardJsonData, (value, label) => { CardDataAssets = value; OnSuccess(label); }));
-        _assetLoaders.Add(new SpawnableUIAssetLoader(Label.SpawnableUI, (value, label) => { SpawnableUIAssets = value; OnSuccess(label); }));
+        _assetLoaders.Add(new EntityDataAssetLoader(Label.EntityJsonData, (value, label) => { EntityDataAssets = value; OnSuccess(label); }));
+
+        _assetLoaders.Add(new SpawnableUIPrefabAssetLoader(Label.SpawnableUIPrefab, (value, label) => { SpawnableUIPrefabAssets = value; OnSuccess(label); }));
+        _assetLoaders.Add(new EntityPrefabAssetLoader(Label.EntityPrefab, (value, label) => { EntityPrefabAssets = value; OnSuccess(label); }));
+
         _assetLoaders.Add(new CardIconAssetLoader(Label.CardIconSprite, (value, label) => { CardIconSprites = value; OnSuccess(label); }));
 
         this.OnCompleted = OnCompleted;

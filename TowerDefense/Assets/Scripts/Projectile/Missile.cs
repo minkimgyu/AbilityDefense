@@ -15,8 +15,16 @@ public class Missile : MonoBehaviour, IProjectile
         return Vector3.Distance(transform.position, targetPos);
     }
 
-    public void Fire(ITarget target, IDamageable damageable)
+    public GameObject GetObject()
     {
+        return gameObject;
+    }
+
+    public void Fire(Vector3 startPos, Quaternion startQuaternion, ITarget target)
+    {
+        transform.position = startPos;
+        transform.rotation = startQuaternion;
+
         float distance = GetDistanceBetweenTarget(target.GetTransform().position);
         if (distance > _hitDistance)
         {

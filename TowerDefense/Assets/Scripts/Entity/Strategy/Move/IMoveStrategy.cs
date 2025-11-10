@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface IMoveStrategy
 {
-    void OnUpdate();
+    void RotateTo(Vector3 targetPosition) { }
+    void InjectTurretTransform(Transform turretTransform) { }
+    void OnUpdate() { }
 }

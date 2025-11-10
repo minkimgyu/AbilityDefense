@@ -10,6 +10,7 @@ abstract public class BaseState<T>
     }
 
     public virtual void OnStateEnter(CardData data) { }
+    public virtual void OnStateEnter(CardData data, Vector3 resultPos) { }
     public virtual void OnStateEnter() { }
     public virtual void OnStateUpdate() { }
     public virtual void OnStateExit() { }

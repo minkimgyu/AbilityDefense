@@ -9,6 +9,9 @@ public interface IProjectile
         Bullet,
         Missile
     }
-    public virtual void Initialize(float damage, float speed) { }
-    public void Fire(ITarget target, IDamageable damageable);
+
+    void Initialize(float damage, float speed) { }
+    void Fire(Vector3 startPos, Quaternion startQuaternion, ITarget target) { }
+    void Fire(Vector3 startPos, Quaternion startQuaternion, ITarget target, IDamageable damageable) { }
+    GameObject GetObject();
 }

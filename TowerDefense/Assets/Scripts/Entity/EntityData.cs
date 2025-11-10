@@ -1,67 +1,203 @@
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityData
 {
+    [JsonProperty("name")]
     protected Entity.Name _name;
 
-    public EntityData(Entity.Name name)
+    [JsonProperty("myType")]
+    protected ITarget.Type _myType;
+
+    [JsonIgnore] public Entity.Name Name { get => _name; set => _name = value; }
+    [JsonIgnore] public ITarget.Type MyType { get => _myType; set => _myType = value; }
+
+    public EntityData(Entity.Name name, ITarget.Type myType)
     {
-        _name = name;
+        Name = name;
+        MyType = myType;
     }
 }
 
-public class UnitData : EntityData
+//public class UnitData : EntityData
+//{
+//    BuffValue<float> _maxHp;
+//    BuffValue<float> _moveSpeed;
+
+//    public UnitData(Entity.Name name, BuffValue<float> maxHp, BuffValue<float> moveSpeed) : base(name)
+//    {
+//        _maxHp = maxHp;
+//        _moveSpeed = moveSpeed;
+//    }
+
+//    public BuffValue<float> MaxHp { get => _maxHp; }
+//    public BuffValue<float> MoveSpeed { get => _moveSpeed; }
+//}
+
+//public class TowerData : EntityData
+//{
+//    public TowerData(Entity.Name name) : base(name)
+//    {
+//    }
+//}
+
+[Serializable]
+public class GunnerData : EntityData, IDataModifier
 {
-    BuffValue<float> _maxHp;
-    BuffValue<float> _moveSpeed;
+    [JsonProperty("projectileName")]
+    private IProjectile.Name _projectileName;
 
-    public UnitData(Entity.Name name, BuffValue<float> maxHp, BuffValue<float> moveSpeed) : base(name)
+    [JsonProperty("targetingRange")]
+    private BuffValue<float> _targetingRange;
+
+    [JsonProperty("attackDamage")]
+    private BuffValue<float> _attackDamage;
+
+    [JsonProperty("attackRate")]
+    private BuffValue<float> _attackRate;
+
+    [JsonProperty("targetTypes")]
+    private List<ITarget.Type> _targetTypes;
+
+    [JsonProperty("rotationSpeed")]
+    private float _rotationSpeed;
+
+    public GunnerData(
+        Entity.Name name,
+        ITarget.Type myType,
+        List<ITarget.Type> targetTypes,
+        IProjectile.Name projectileName,
+        BuffValue<float> attackDamage,
+        BuffValue<float> targetingRange,
+        BuffValue<float> attackRate,
+        float rotationSpeed) : base(name, myType)
     {
-        _maxHp = maxHp;
-        _moveSpeed = moveSpeed;
+        _targetTypes = targetTypes;
+        _attackDamage = attackDamage;
+        _projectileName = projectileName;
+        _targetingRange = targetingRange;
+        _attackRate = attackRate;
+        _rotationSpeed = rotationSpeed;
     }
 
-    public BuffValue<float> MaxHp { get => _maxHp; }
-    public BuffValue<float> MoveSpeed { get => _moveSpeed; }
+    public void ApplyAttackDamage(float attack) => _attackDamage.Value += attack;
+    public void ApplyAttackRate(float rate) => _attackRate.Value += rate;
+    public void ApplyTargetingRange(float range) => _targetingRange.Value += range;
+
+    [JsonIgnore] public BuffValue<float> TargetingRange => _targetingRange;
+    [JsonIgnore] public BuffValue<float> AttackDamage => _attackDamage;
+    [JsonIgnore] public BuffValue<float> AttackRate => _attackRate;
+    [JsonIgnore] public IProjectile.Name ProjectileName => _projectileName;
+    [JsonIgnore] public List<ITarget.Type> TargetTypes => _targetTypes;
+    [JsonIgnore] public float RotationSpeed => _rotationSpeed;
 }
 
-public class TowerData : EntityData
+[Serializable]
+public class BulletTowerData : EntityData, IDataModifier
 {
-    public TowerData(Entity.Name name) : base(name)
+    [JsonProperty("projectileName")]
+    private IProjectile.Name _projectileName;
+
+    [JsonProperty("targetingRange")]
+    private BuffValue<float> _targetingRange;
+
+    [JsonProperty("attackDamage")]
+    private BuffValue<float> _attackDamage;
+
+    [JsonProperty("attackRate")]
+    private BuffValue<float> _attackRate;
+
+    [JsonProperty("targetTypes")]
+    private List<ITarget.Type> _targetTypes;
+
+    [JsonProperty("rotationSpeed")]
+    private float _rotationSpeed;
+
+    public BulletTowerData(
+        Entity.Name name,
+        ITarget.Type myType,
+        List<ITarget.Type> targetTypes,
+        IProjectile.Name projectileName,
+        BuffValue<float> attackDamage,
+        BuffValue<float> targetingRange,
+        BuffValue<float> attackRate,
+        float rotationSpeed) : base(name, myType)
     {
+        _attackDamage = attackDamage;
+        _projectileName = projectileName;
+        _targetingRange = targetingRange;
+        _attackRate = attackRate;
+        _rotationSpeed = rotationSpeed;
     }
+
+    public void ApplyAttackDamage(float attack) => _attackDamage.Value += attack;
+    public void ApplyAttackRate(float rate) => _attackRate.Value += rate;
+    public void ApplyTargetingRange(float range) => _targetingRange.Value += range;
+
+    [JsonIgnore] public BuffValue<float> TargetingRange => _targetingRange;
+    [JsonIgnore] public BuffValue<float> AttackDamage => _attackDamage;
+    [JsonIgnore] public BuffValue<float> AttackRate => _attackRate;
+    [JsonIgnore] public IProjectile.Name ProjectileName => _projectileName;
+    [JsonIgnore] public List<ITarget.Type> TargetTypes => _targetTypes;
+    [JsonIgnore] public float RotationSpeed => _rotationSpeed;
 }
 
+[Serializable]
 public class GuidedMissileTowerData : EntityData, IDataModifier
 {
-    IProjectile.Name _projectileName;
-    BuffValue<float> _targetingRange;
-    BuffValue<float> _explosionDamage;
-    BuffValue<float> _explosionRange;
-    BuffValue<float> _attackRate;
+    [JsonProperty("projectileName")]
+    private IProjectile.Name _projectileName;
+
+    [JsonProperty("targetTypes")]
+    private List<ITarget.Type> _targetTypes;
+
+    [JsonProperty("targetingRange")]
+    private BuffValue<float> _targetingRange;
+
+    [JsonProperty("explosionDamage")]
+    private BuffValue<float> _explosionDamage;
+
+    [JsonProperty("explosionRange")]
+    private BuffValue<float> _explosionRange;
+
+    [JsonProperty("attackRate")]
+    private BuffValue<float> _attackRate;
+
+    [JsonProperty("rotationSpeed")]
+    private float _rotationSpeed;
 
     public GuidedMissileTowerData(
         Entity.Name name,
+        ITarget.Type myType,
+        List<ITarget.Type> targetTypes,
         IProjectile.Name projectileName,
         BuffValue<float> explosionDamage,
-        BuffValue<float> targetingRange,
         BuffValue<float> explosionRange,
-        BuffValue<float> attackRate) : base(name)
+        BuffValue<float> targetingRange,
+        BuffValue<float> attackRate,
+        float rotationSpeed) : base(name, myType)
     {
+        _targetTypes = targetTypes;
         _explosionDamage = explosionDamage;
         _projectileName = projectileName;
         _targetingRange = targetingRange;
         _explosionRange = explosionRange;
         _attackRate = attackRate;
+        _rotationSpeed = rotationSpeed;
     }
 
-    public void ApplyAttackDamage(float attack) { _explosionDamage.Value += attack; }
+    public void ApplyAttackDamage(float attack) => _explosionDamage.Value += attack;
+    public void ApplyAttackRate(float rate) => _attackRate.Value += rate;
+    public void ApplyTargetingRange(float range) => _targetingRange.Value += range;
 
-    public BuffValue<float> TargetingRange { get => _targetingRange; }
-    public BuffValue<float> ExplosionDamage { get => _explosionDamage; }
-    public BuffValue<float> ExplosionRange { get => _explosionRange; }
-    public BuffValue<float> AttackRate { get => _attackRate; }
-    public IProjectile.Name ProjectileName { get => _projectileName; }
+    [JsonIgnore] public BuffValue<float> TargetingRange => _targetingRange;
+    [JsonIgnore] public BuffValue<float> ExplosionDamage => _explosionDamage;
+    [JsonIgnore] public BuffValue<float> ExplosionRange => _explosionRange;
+    [JsonIgnore] public BuffValue<float> AttackRate => _attackRate;
+    [JsonIgnore] public IProjectile.Name ProjectileName => _projectileName;
+    [JsonIgnore] public List<ITarget.Type> TargetTypes => _targetTypes;
+    [JsonIgnore] public float RotationSpeed => _rotationSpeed;
 }
