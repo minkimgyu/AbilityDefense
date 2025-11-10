@@ -15,15 +15,19 @@ namespace FlowField
 
         public Node(Vector2 pos, Vector2Int index, State state)
         {
-            _worldPos = pos;
+            _localPos = pos;
             _index = index;
             _state = state;
             _pathWeight = int.MaxValue;
             HaveBlockNodeInNeighbor = false;
         }
 
-        Vector2 _worldPos; // 실제 위치
-        public Vector2 WorldPos { get { return _worldPos; } }
+        // 그리드 상 위치
+        Vector2 _localPos;
+        public Vector2 LocalPos { get { return _localPos; } }
+
+        // 실제 위치
+        public Vector3 WorldPos { get { return new Vector3(_localPos.x, 0, _localPos.y); } }
 
         Vector2Int _index; // 그리드 상 인덱스
         public Vector2Int Index { get { return _index; } }

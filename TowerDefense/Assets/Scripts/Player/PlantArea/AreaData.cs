@@ -20,6 +20,15 @@ public struct AreaData
     [JsonIgnore] public int ColSize { get => _colSize; }
     [JsonIgnore] public Vector2Int Pivot { get => _pivot; }
 
+    public Vector3 GetCenterPosition(Vector3 pivotPosition)
+    {
+        // 영역의 중심 좌표는 (rowSize, colSize)에 따라 계산
+        float centerX = pivotPosition.x + (float)(_colSize - 1) / 2;
+        float centerZ = pivotPosition.z - (float)(_rowSize - 1) / 2;
+
+        return new Vector3(centerX, 0, centerZ);
+    }
+
     //row, col
     [JsonIgnore] static public AreaData OneXOne { get => new AreaData(1, 1, new Vector2Int(0, 0)); }
     [JsonIgnore] static public AreaData TwoXTwo { get => new AreaData(2, 2, new Vector2Int(0, 0)); }

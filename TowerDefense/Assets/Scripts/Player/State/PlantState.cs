@@ -20,7 +20,7 @@ namespace Player
             // 추가로 Grid Pathfinder 재계산 해주기
 
             Entity entity = _entityFactory.Create(data.NameToSpawn);
-
+            entity.SetPosition(resultPos);
 
             Debug.Log("심기");
             _fsm.SetState(PlayerController.State.Idle);

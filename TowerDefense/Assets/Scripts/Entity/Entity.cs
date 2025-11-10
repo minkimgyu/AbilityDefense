@@ -72,6 +72,11 @@ public abstract class Entity : MonoBehaviour
     public abstract void Initialize();
     public abstract void OnUpdate();
 
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
+
     private void Update()
     {
         if(_lifeState == LifeState.Dead) return;

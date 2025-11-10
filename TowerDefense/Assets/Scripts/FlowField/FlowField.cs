@@ -42,7 +42,7 @@ namespace FlowField
                 {
                     float currentWeight = nearNodes[i].Weight;
 
-                    Vector2 directionVec = nearNodes[i].WorldPos - minNode.WorldPos;
+                    Vector2 directionVec = nearNodes[i].LocalPos - minNode.LocalPos;
                     if (directionVec == TopLeft ||
                         directionVec == TopRight ||
                         directionVec == BottomLeft ||

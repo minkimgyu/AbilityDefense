@@ -166,7 +166,7 @@ namespace FlowField
                         }
                     }
 
-                    direction = (nearNodes[minIndex].WorldPos - _nodes[i, j].WorldPos).normalized;
+                    direction = (nearNodes[minIndex].LocalPos - _nodes[i, j].LocalPos).normalized;
 
                     _nodes[i, j].DirectionToMove = direction;
                 }
@@ -175,8 +175,8 @@ namespace FlowField
 
         public Vector2 ReturnClampedRange(Vector2 pos)
         {
-            Vector2 topLeftPos = ReturnNode(0, 0).WorldPos;
-            Vector2 bottomRightPos = ReturnNode(_grid.RowSize - 1, _grid.ColSize - 1).WorldPos;
+            Vector2 topLeftPos = ReturnNode(0, 0).LocalPos;
+            Vector2 bottomRightPos = ReturnNode(_grid.RowSize - 1, _grid.ColSize - 1).LocalPos;
 
             // 반올림하고 범위 안에 맞춰줌
             // 이 부분은 GridSize 바뀌면 수정해야함
@@ -196,7 +196,7 @@ namespace FlowField
         public Vector2Int ReturnNodeIndex(Vector2 worldPos)
         {
             Vector2 clampedPos = ReturnClampedRange(worldPos);
-            Vector2 topLeftPos = ReturnNode(0, 0).WorldPos;
+            Vector2 topLeftPos = ReturnNode(0, 0).LocalPos;
 
             int r = Mathf.RoundToInt(Mathf.Abs(topLeftPos.y - clampedPos.y) / _nodeSize);
             int c = Mathf.RoundToInt(Mathf.Abs(topLeftPos.x - clampedPos.x) / _nodeSize); // 인덱스이므로 1 빼준다.
@@ -206,7 +206,7 @@ namespace FlowField
         public Vector2 ReturnClampPos(Vector2 worldPos)
         {
             Vector2Int grid = ReturnNodeIndex(worldPos);
-            return _nodes[grid.x, grid.y].WorldPos;
+            return _nodes[grid.x, grid.y].LocalPos;
         }
 
         bool IsOutOfRange(Vector2Int index) { return index.x < 0 || index.y < 0 || index.x >= _grid.RowSize || index.y >= _grid.ColSize; }

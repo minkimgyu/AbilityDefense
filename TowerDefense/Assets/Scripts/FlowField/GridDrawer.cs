@@ -87,7 +87,7 @@ namespace FlowField
             {
                 for (int j = 0; j < _grid.ColSize; j++)
                 {
-                    Vector3 toV2 = new Vector3(_nodes[i, j].WorldPos.x, 0, _nodes[i, j].WorldPos.y);
+                    Vector3 toV2 = new Vector3(_nodes[i, j].LocalPos.x, 0, _nodes[i, j].LocalPos.y);
 
                     if (_showType == ShowType.Direction)
                     {

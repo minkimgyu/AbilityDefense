@@ -36,7 +36,7 @@ public class SearchAreaComponent
                 if (isEmpty == true)
                 {
                     resultIdx = node.NearNodes[i].Index;
-                    resultPos = node.NearNodes[i].WorldPos;
+                    resultPos = node.NearNodes[i].LocalPos;
                     return true;
                 }
 
@@ -67,7 +67,7 @@ public class SearchAreaComponent
         if (isEmpty == true) // 있다면 시작 위치 반환
         {
             resultIdx = idx;
-            resultPos = startNode.WorldPos;
+            resultPos = areaData.GetCenterPosition(startNode.WorldPos);
             return true;
         }
 
