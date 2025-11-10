@@ -8,16 +8,16 @@ public class CardUIFactory
     GameObject _cardUIPrefab;
     Dictionary<CardData.Name, Sprite> _cardIconSprites;
 
-    public CardUIFactory(ISpawnableUI cardUI, Dictionary<CardData.Name, Sprite> cardIconSprites)
+    public CardUIFactory(GameObject cardUI, Dictionary<CardData.Name, Sprite> cardIconSprites)
     {
-        _cardUIPrefab = cardUI.GetObject();
+        _cardUIPrefab = cardUI;
         _cardIconSprites = cardIconSprites;
     }
 
-    public CardUI Create(CardData.Name cardName, CardData cardData)
+    public ISpawnableUI Create(CardData.Name cardName, CardData cardData)
     {
         GameObject cardGO = Object.Instantiate(_cardUIPrefab);
-        CardUI ui = cardGO.GetComponent<CardUI>();
+        ISpawnableUI ui = cardGO.GetComponent<ISpawnableUI>();
         ui.Initialize(_cardIconSprites[cardName], cardData);
 
         return ui;

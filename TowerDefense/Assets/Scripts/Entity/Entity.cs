@@ -7,14 +7,14 @@ public abstract class Entity : MonoBehaviour
     public enum Name
     {
         Gunner,
-        GridMissileTower,
         BulletTower,
         GuidedMissileTower,
-        ThrowTower,
-        ProvocationWarrior,
-        ProvocationGolem,
-        SparkTower,
-        LaserTower
+        //GridMissileTower,
+        //ThrowTower,
+        //ProvocationWarrior,
+        //ProvocationGolem,
+        //SparkTower,
+        //LaserTower
     }
 
     public enum PlacementState
@@ -35,17 +35,23 @@ public abstract class Entity : MonoBehaviour
         Groggy, // 기절 상태
     }
 
-    IMoveStrategy _moveStrategy;
-    IAttackStrategy _attackStrategy;
+    protected IMoveStrategy _moveStrategy;
+    protected IDetectStrategy _detectStrategy;
+    protected IAttackStrategy _attackStrategy;
 
     protected LifeState _lifeState; // 생존 상태
     protected PlacementState _placementState; // 배치 상태
     protected EntityState _entityState; // 엔티티 상태 (일반, 기절)
 
-    public void InjectStrategy(IMoveStrategy moveStrategy, IAttackStrategy attackStrategy)
+    public void InjectStrategy(
+        IDetectStrategy detectStrategy,
+        IAttackStrategy attackStrategy,
+        IMoveStrategy moveStrategy
+    )
     {
-        _moveStrategy = moveStrategy;
+        _detectStrategy = detectStrategy;
         _attackStrategy = attackStrategy;
+        _moveStrategy = moveStrategy;
     }
 
     public virtual void SetState(LifeState state)
@@ -64,6 +70,7 @@ public abstract class Entity : MonoBehaviour
     }
 
     public abstract void Initialize();
+    public abstract void OnUpdate();
 
     private void Update()
     {
@@ -71,6 +78,7 @@ public abstract class Entity : MonoBehaviour
         if(_placementState == PlacementState.Ready) return;
         if(_entityState == EntityState.Groggy) return;
 
+        OnUpdate();
         _moveStrategy.OnUpdate();
         _attackStrategy.OnUpdate();
     }

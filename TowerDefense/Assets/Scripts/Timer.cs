@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Timer
@@ -12,13 +10,15 @@ public class Timer
     }
 
     State _state;
-    float _startTime, _duration;
+    float _elapsedTime;   // 경과 시간
+    float _duration;      // 총 시간
 
     public State CurrentState
     {
         get
         {
-            if (_state == State.Running && _duration <= Time.time - _startTime) _state = State.Finish;
+            if (_state == State.Running && _elapsedTime >= _duration)
+                _state = State.Finish;
             return _state;
         }
     }
@@ -27,34 +27,38 @@ public class Timer
     {
         get
         {
-            if (_state == State.Ready) return 0;
-            else
-            {
-                return Mathf.Clamp((Time.time - _startTime) / _duration, 0, 1);
-            }
+            if (_state == State.Ready) return 0f;
+            return Mathf.Clamp01(_elapsedTime / _duration);
         }
     }
 
     public Timer()
     {
         _state = State.Ready;
-        _startTime = 0;
-        _duration = 0;
+        _elapsedTime = 0f;
+        _duration = 0f;
     }
 
     public void Start(float duration)
     {
         if (_state != State.Ready) return;
         _state = State.Running;
-
-        _startTime = Time.time;
+        _elapsedTime = 0f;
         _duration = duration;
     }
 
-    // 타이머를 처음으로 초기화해준다.
     public void Reset()
     {
-        if (_state == State.Ready) return;
         _state = State.Ready;
+        _elapsedTime = 0f;
+    }
+
+    // Update에서 매 프레임 호출
+    public void Update(float deltaTime)
+    {
+        if (_state != State.Running) return;
+
+        _elapsedTime += deltaTime;
+        if (_elapsedTime >= _duration) _state = State.Finish;
     }
 }

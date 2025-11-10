@@ -1,11 +1,19 @@
 using System;
+using Newtonsoft.Json;
 
+[Serializable]
 public class BuffValue<T> where T : struct, IComparable<T>
 {
+    [JsonProperty("min")]
     private T _min;
+
+    [JsonProperty("max")]
     private T _max;
+
+    [JsonProperty("current")]
     private T _current;
 
+    [JsonIgnore]
     public T Min
     {
         get => _min;
@@ -16,6 +24,7 @@ public class BuffValue<T> where T : struct, IComparable<T>
         }
     }
 
+    [JsonIgnore]
     public T Max
     {
         get => _max;
@@ -26,14 +35,14 @@ public class BuffValue<T> where T : struct, IComparable<T>
         }
     }
 
+    [JsonIgnore]
     public T Value
     {
         get => _current;
-        set
-        {
-            _current = ClampValue(value);
-        }
+        set => _current = ClampValue(value);
     }
+
+    public BuffValue() { }
 
     public BuffValue(T min, T max, T initial)
     {

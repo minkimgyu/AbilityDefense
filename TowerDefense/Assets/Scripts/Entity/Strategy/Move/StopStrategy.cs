@@ -4,7 +4,4 @@ using UnityEngine;
 
 public class StopStrategy : IMoveStrategy
 {
-    public void OnUpdate()
-    {
-    }
 }

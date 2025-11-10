@@ -58,9 +58,10 @@ public class CardController : MonoBehaviour
 
     CardData.Name GetRandomCardName()
     {
-        CardData.Name[] enums = (CardData.Name[])System.Enum.GetValues(typeof(CardData.Name));
-        int randomIndex = Random.Range(0, enums.Length);
-        return enums[randomIndex];
+        //CardData.Name[] enums = (CardData.Name[])System.Enum.GetValues(typeof(CardData.Name));
+        //int randomIndex = Random.Range(0, enums.Length);
+        //return enums[randomIndex];
+        return CardData.Name.GuidedMissileTowerSpawnCard;
     }
 
     [ContextMenu("GenerateRandomCards")]
@@ -77,8 +78,8 @@ public class CardController : MonoBehaviour
         }
         else
         {
-            CardUI cardUI = _cardUIFactory.Create(name, _cardDataAssets[name]);
-            cardUI.InjectDragEvents(OnCardDragStart, OnCardDragEnd);
+            CardUI cardUI = (CardUI)_cardUIFactory.Create(name, _cardDataAssets[name]);
+            cardUI.AddDragEvents(OnCardDragStart, OnCardDragEnd);
             cardUI.transform.SetParent(_cardParent);
         }
     }

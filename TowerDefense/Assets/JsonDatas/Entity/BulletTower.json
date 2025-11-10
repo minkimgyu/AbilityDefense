@@ -1,0 +1,26 @@
+{
+  "$type": "BulletTowerData, Assembly-CSharp",
+  "projectileName": "Bullet",
+  "targetingRange": {
+    "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
+    "min": 0.0,
+    "max": 4.0,
+    "current": 4.0
+  },
+  "attackDamage": {
+    "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
+    "min": 0.0,
+    "max": 8.0,
+    "current": 8.0
+  },
+  "attackRate": {
+    "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
+    "min": 0.0,
+    "max": 1.5,
+    "current": 1.5
+  },
+  "targetTypes": null,
+  "rotationSpeed": 25.0,
+  "name": "BulletTower",
+  "myType": "Ally"
+}

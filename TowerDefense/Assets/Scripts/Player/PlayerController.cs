@@ -17,7 +17,7 @@ namespace Player
 
         [SerializeField] AreaSelector _areaSelector;
 
-        public void Initialize(FlowField.GridComponent gridComponent)
+        public void Initialize(FlowField.GridComponent gridComponent, EntityFactory entityFactory)
         {
             SelectComponent selectComponent = new SelectComponent(gridComponent);
             SearchAreaComponent searchAreaComponent = new SearchAreaComponent(gridComponent);
@@ -28,14 +28,13 @@ namespace Player
             {
                 { State.Idle, new IdleState(_fsm, selectComponent) },
                 { State.Pick, new PickState(_fsm, selectComponent, searchAreaComponent, _areaSelector) },
-                { State.Plant, new PlantState(_fsm) },
+                { State.Plant, new PlantState(_fsm, entityFactory) },
             };
             _fsm.Initialize(states, State.Idle);
         }
 
         public void OnCardDragStart(CardData cardData) => _fsm.OnCardDragStart(cardData);
         public void OnCardDragEnd(bool canPlant) => _fsm.OnCardDragEnd(canPlant);
-
 
         private void Update()
         {

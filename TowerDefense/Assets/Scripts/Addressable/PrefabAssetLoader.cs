@@ -6,20 +6,27 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using System;
 
-public class SpawnableUIAssetLoader : MultiplePrafabAssetLoader<ISpawnableUI.Name, ISpawnableUI>
+public class SpawnableUIPrefabAssetLoader : MultiplePrafabAssetLoader<ISpawnableUI.Name>
 {
-    public SpawnableUIAssetLoader(AddressableLoader.Label label, Action<Dictionary<ISpawnableUI.Name, ISpawnableUI>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
+    public SpawnableUIPrefabAssetLoader(AddressableLoader.Label label, Action<Dictionary<ISpawnableUI.Name, GameObject>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
     {
     }
 }
 
-abstract public class MultiplePrafabAssetLoader<Key, Value> : MultipleAssetLoader<Key, Value, GameObject>
+public class EntityPrefabAssetLoader : MultiplePrafabAssetLoader<Entity.Name>
 {
-    protected MultiplePrafabAssetLoader(AddressableLoader.Label label, Action<Dictionary<Key, Value>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
+    public EntityPrefabAssetLoader(AddressableLoader.Label label, Action<Dictionary<Entity.Name, GameObject>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
+    {
+    }
+}
+
+abstract public class MultiplePrafabAssetLoader<Key> : MultipleAssetLoader<Key, GameObject, GameObject>
+{
+    protected MultiplePrafabAssetLoader(AddressableLoader.Label label, Action<Dictionary<Key, GameObject>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
     {
     }
 
-    protected override void LoadAsset(IResourceLocation location, Dictionary<Key, Value> dictionary, Action OnComplete)
+    protected override void LoadAsset(IResourceLocation location, Dictionary<Key, GameObject> dictionary, Action OnComplete)
     {
         Addressables.LoadAssetAsync<GameObject>(location).Completed +=
         (handle) =>
@@ -28,9 +35,8 @@ abstract public class MultiplePrafabAssetLoader<Key, Value> : MultipleAssetLoade
             {
                 case AsyncOperationStatus.Succeeded:
                     Key key = (Key)Enum.Parse(typeof(Key), location.PrimaryKey);
-                    Value value = handle.Result.GetComponent<Value>();
 
-                    dictionary.Add(key, value);
+                    dictionary.Add(key, handle.Result);
                     OnComplete?.Invoke();
                     break;
 
@@ -44,14 +50,14 @@ abstract public class MultiplePrafabAssetLoader<Key, Value> : MultipleAssetLoade
     }
 }
 
-abstract public class SinglePrafabAssetLoader<Value> : SingleAssetLoader<Value, GameObject>
+abstract public class SinglePrafabAssetLoader : SingleAssetLoader<GameObject, GameObject>
 {
-    protected SinglePrafabAssetLoader(AddressableLoader.Label label, Action<Value, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
+    protected SinglePrafabAssetLoader(AddressableLoader.Label label, Action<GameObject, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
     {
     }
 
     protected override void LoadAsset(GameObject value)
     {
-        _asset = value.GetComponent<Value>();
+        _asset = value;
     }
 }

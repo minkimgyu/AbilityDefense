@@ -12,6 +12,6 @@ public interface ITarget
     }
 
     bool IsTarget(ITarget.Type type);
-
+    bool IsTarget(List<ITarget.Type> type);
     Transform GetTransform();
 }

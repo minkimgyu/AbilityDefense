@@ -17,56 +17,20 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: a81021518fff8bb41b00795f5c6221ef
   m_SerializeEntries:
-  - m_GUID: 0615bb2d94945f443a6cf8ffa4f3f9f9
-    m_Address: LaserTowerSpawnCard
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - CardJsonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 192fcdf1ebe0a114998736eda6f4e9d9
-    m_Address: ProvocationGolemSpawnCard
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - CardJsonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 27408a1b34f130042b5a106f1d695df5
-    m_Address: SparkTowerSpawnCard
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - CardJsonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5fcd8d2640f09fc4c800b63b59ccedaa
+  - m_GUID: 184077bfdc93537478042c6bedc0a793
     m_Address: BulletTowerSpawnCard
     m_ReadOnly: 0
     m_SerializedLabels:
     - CardJsonData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 603f3ebb0c5b7ff42a53092da330b856
+  - m_GUID: 87ffef56f952fc84f919a63436f75f71
     m_Address: GuidedMissileTowerSpawnCard
     m_ReadOnly: 0
     m_SerializedLabels:
     - CardJsonData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 760817c546b49da4698481cc692d5f7a
+  - m_GUID: d28794738ecf49a4d8f0b12b33bd2a6f
     m_Address: GunnerSpawnCard
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - CardJsonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a0dafceb118b2694d8b05f226812f33a
-    m_Address: ThrowTowerSpawnCard
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - CardJsonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: acc113b1167646b479fb13d99a16c58e
-    m_Address: ProvocationWarriorSpawnCard
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - CardJsonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b12661fbeb5d25c499c3f9a86166055f
-    m_Address: GridMissileTowerSpawnCard
     m_ReadOnly: 0
     m_SerializedLabels:
     - CardJsonData

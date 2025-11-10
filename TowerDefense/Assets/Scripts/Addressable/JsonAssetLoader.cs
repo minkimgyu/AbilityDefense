@@ -71,37 +71,9 @@ public class CardDataAssetLoader : MultipleJsonAssetLoader<CardData.Name, CardDa
     }
 }
 
-//public class CollectiveArtJsonAssetLoader : IntMultipleJsonAssetLoader<int, CollectArtData>
-//{
-//    public CollectiveArtJsonAssetLoader(AddressableLoader.Label label, Action<Dictionary<int, CollectArtData>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
-//    {
-//    }
-//}
-
-//public class ArtworkDataJsonAssetLoader : MultipleJsonAssetLoader<ILocalization.Language, ArtworkDateWrapper>
-//{
-//    public ArtworkDataJsonAssetLoader(AddressableLoader.Label label, Action<Dictionary<ILocalization.Language, ArtworkDateWrapper>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
-//    {
-//    }
-//}
-
-//public class ChallengeModeStageDataJsonAssetLoader : SingleJsonAssetLoader<LevelDataWrapper>
-//{
-//    public ChallengeModeStageDataJsonAssetLoader(AddressableLoader.Label label, Action<LevelDataWrapper, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
-//    {
-//    }
-//}
-
-//public class LocalizationDataJsonAssetLoader : SingleJsonAssetLoader<Localization>
-//{
-//    public LocalizationDataJsonAssetLoader(AddressableLoader.Label label, Action<Localization, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
-//    {
-//    }
-//}
-
-//public class ColorPaletteDataJsonAssetLoader : SingleJsonAssetLoader<ColorPaletteDataWrapper>
-//{
-//    public ColorPaletteDataJsonAssetLoader(AddressableLoader.Label label, Action<ColorPaletteDataWrapper, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
-//    {
-//    }
-//}
+public class EntityDataAssetLoader : MultipleJsonAssetLoader<Entity.Name, EntityData>
+{
+    public EntityDataAssetLoader(AddressableLoader.Label label, Action<Dictionary<Entity.Name, EntityData>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
+    {
+    }
+}

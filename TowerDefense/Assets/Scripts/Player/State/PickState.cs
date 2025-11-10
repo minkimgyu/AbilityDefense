@@ -10,6 +10,7 @@ namespace Player
         SelectComponent _selectComponent;
         SearchAreaComponent _searchAreaComponent;
         AreaSelector _areaSelector;
+        EntityFactory _entityFactory;
 
         public PickState(
             FSM<PlayerController.State> fsm,
@@ -25,12 +26,13 @@ namespace Player
 
         public override void OnStateEnter(CardData data)
         {
-            _storedAreaData = data.AreaData;
-            _areaSelector.SetUp(_storedAreaData);
+            _cardData = data;
+            _areaSelector.SetUp(_cardData.AreaData);
         }
 
+        CardData _cardData;
         Vector2Int _storedIdx;
-        AreaData _storedAreaData;
+        Vector3 _resultPos;
 
         public override void OnCardDragEnd(bool canPlant)
         {
@@ -38,7 +40,8 @@ namespace Player
 
             if (canPlant == true)
             {
-                _fsm.SetState(PlayerController.State.Plant);
+                Debug.Log($"PickState: {_cardData.NameToSpawn}");
+                _fsm.SetState(PlayerController.State.Plant, _cardData, _resultPos);
             }
             else
             {
@@ -53,16 +56,18 @@ namespace Player
                 if (idx != _storedIdx)// 이전에 선택한 위치와 같다면 무시
                 {
                     Vector2Int resultIdx;
-                    if (_searchAreaComponent.FindEmptyArea(idx, _storedAreaData, out resultIdx))
+                    Vector3 resultPos;
+
+                    if (_searchAreaComponent.FindEmptyArea(idx, _cardData.AreaData, out resultIdx, out resultPos))
                     {
                         // TODO
                         // 위치 바뀔 때마다 Pathfinder 돌려서 실제로 스폰포인트부터
                         // 목표 지점까지 도달할 수 있는지 확인해주기
                         // 만약 못 간다면 심는 것 불가능. 다른 위치 확인
 
-
                         _areaSelector.Move(resultIdx);
                         _storedIdx = resultIdx;
+                        _resultPos = resultPos;
                     }
                 }
             }

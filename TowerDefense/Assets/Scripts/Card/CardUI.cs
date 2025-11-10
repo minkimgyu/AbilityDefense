@@ -39,7 +39,7 @@ public class CardUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHa
         _cardData = cardData;
     }
 
-    public void InjectDragEvents(System.Action<CardData> OnDragStart, System.Action OnDragEnd)
+    public void AddDragEvents(System.Action<CardData> OnDragStart, System.Action OnDragEnd)
     {
         this.OnDragStart = OnDragStart;
         this.OnDragEnd = OnDragEnd;
