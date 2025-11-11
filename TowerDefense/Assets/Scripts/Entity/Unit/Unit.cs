@@ -1,3 +1,4 @@
+using FlowField;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,12 +8,18 @@ public abstract class Unit : Entity, IDamageable, ITarget
 {
     ITarget.Type _targetType;
     float _hp;
-    System.Action OnDestory;
 
     public void SetDamage(float damage)
     {
         _hp -= damage;
         if (_hp <= 0) Destroy(gameObject);
+    }
+
+    protected PathTracker _pathTracker;
+
+    public override void InjectPathTracker(PathTracker pathTracker) 
+    {
+        _pathTracker = pathTracker;
     }
 
     public virtual void SetState(ITarget.Type type)

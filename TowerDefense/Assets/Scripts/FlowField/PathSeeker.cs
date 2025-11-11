@@ -15,7 +15,7 @@ namespace FlowField
 
         public Vector3 ReturnDirection()
         {
-            return _gridComponent.ReturnNodeDirection(transform.position);
+            return _gridComponent.GetNodeDirection(transform.position);
         }
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public interface IDataModifier
 {
-    virtual void ApplyAttackDamage(float attack) { }
-    virtual void ApplyAttackRate(float rate) { }
-    virtual void ApplyTargetingRange(float range) { }
+    virtual void ModifyAttackDamage(float attack) { }
+    virtual void ModifyAttackRate(float rate) { }
+    virtual void ModifyTargetingRange(float range) { }
+    virtual void ModifyMoveSpeed(float speed) { }
 }

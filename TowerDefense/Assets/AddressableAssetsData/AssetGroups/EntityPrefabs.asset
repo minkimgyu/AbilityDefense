@@ -29,6 +29,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - EntityPrefab
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ad43adc782b26a4eb4ec0d439d5211d
+    m_Address: Imp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityPrefab
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b04d596e5288c5241893e421488cc362
     m_Address: GuidedMissileTower
     m_ReadOnly: 0

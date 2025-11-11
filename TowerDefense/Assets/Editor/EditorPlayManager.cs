@@ -33,8 +33,6 @@ public static partial class EditorPlayManager
                 }
 
                 break;
-            //case PlayModeStateChange.EnteredPlayMode:
-            //    break;
         }
     }
 }

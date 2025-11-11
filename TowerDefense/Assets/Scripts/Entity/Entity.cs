@@ -1,3 +1,4 @@
+using FlowField;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public abstract class Entity : MonoBehaviour
         Gunner,
         BulletTower,
         GuidedMissileTower,
+        Imp
         //GridMissileTower,
         //ThrowTower,
         //ProvocationWarrior,
@@ -53,6 +55,8 @@ public abstract class Entity : MonoBehaviour
         _attackStrategy = attackStrategy;
         _moveStrategy = moveStrategy;
     }
+
+    public virtual void InjectPathTracker(PathTracker pathTracker) { }
 
     public virtual void SetState(LifeState state)
     {

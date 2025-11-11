@@ -21,7 +21,7 @@ namespace Player
             _selectComponent = selectComponent;
             _searchAreaComponent = searchAreaComponent;
             _areaSelector = areaSelector;
-            _storedIdx = new Vector2Int(0, 0);
+            _storedIdx = -Vector2Int.one;
         }
 
         public override void OnStateEnter(CardData data)
@@ -58,7 +58,7 @@ namespace Player
                     Vector2Int resultIdx;
                     Vector3 resultPos;
 
-                    if (_searchAreaComponent.FindEmptyArea(idx, _cardData.AreaData, out resultIdx, out resultPos))
+                    if (_searchAreaComponent.FindEmptyArea(idx, _storedIdx, _cardData.AreaData, out resultIdx, out resultPos))
                     {
                         // TODO
                         // 위치 바뀔 때마다 Pathfinder 돌려서 실제로 스폰포인트부터

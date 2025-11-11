@@ -17,6 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: c3c6fd5ed1e2c10409fe352c23c69207
   m_SerializeEntries:
+  - m_GUID: 15dee890d8cd5f44a8257f38cffecd80
+    m_Address: Imp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityJsonData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9abe5b0be33578741b6c862b520c45e3
     m_Address: Gunner
     m_ReadOnly: 0

@@ -45,6 +45,38 @@ public class EntityData
 //}
 
 [Serializable]
+public class WalkUnitData : EntityData, IDataModifier
+{
+    [JsonProperty("maxHp")]
+    BuffValue<float> _maxHp;
+
+    [JsonProperty("moveSpeed")]
+    BuffValue<float> _moveSpeed;
+
+    [JsonProperty("rotationSpeed")]
+    private float _rotationSpeed;
+
+    public WalkUnitData(
+        Entity.Name name,
+        ITarget.Type myType,
+        BuffValue<float> maxHp,
+        BuffValue<float> moveSpeed,
+        float rotationSpeed) : base(name, myType)
+    {
+        _maxHp = maxHp;
+        _moveSpeed = moveSpeed;
+        _rotationSpeed = rotationSpeed;
+    }
+
+    public void ModifyMoveSpeed(float speed) { _moveSpeed.Value += speed; }
+
+    [JsonIgnore] public BuffValue<float> MaxHp { get => _maxHp; }
+    [JsonIgnore] public BuffValue<float> MoveSpeed { get => _moveSpeed; }
+    [JsonIgnore] public float RotationSpeed { get => _rotationSpeed; }
+}
+
+
+[Serializable]
 public class GunnerData : EntityData, IDataModifier
 {
     [JsonProperty("projectileName")]
@@ -83,9 +115,9 @@ public class GunnerData : EntityData, IDataModifier
         _rotationSpeed = rotationSpeed;
     }
 
-    public void ApplyAttackDamage(float attack) => _attackDamage.Value += attack;
-    public void ApplyAttackRate(float rate) => _attackRate.Value += rate;
-    public void ApplyTargetingRange(float range) => _targetingRange.Value += range;
+    public void ModifyAttackDamage(float attack) => _attackDamage.Value += attack;
+    public void ModifyAttackRate(float rate) => _attackRate.Value += rate;
+    public void ModifyTargetingRange(float range) => _targetingRange.Value += range;
 
     [JsonIgnore] public BuffValue<float> TargetingRange => _targetingRange;
     [JsonIgnore] public BuffValue<float> AttackDamage => _attackDamage;
@@ -133,9 +165,9 @@ public class BulletTowerData : EntityData, IDataModifier
         _rotationSpeed = rotationSpeed;
     }
 
-    public void ApplyAttackDamage(float attack) => _attackDamage.Value += attack;
-    public void ApplyAttackRate(float rate) => _attackRate.Value += rate;
-    public void ApplyTargetingRange(float range) => _targetingRange.Value += range;
+    public void ModifyAttackDamage(float attack) => _attackDamage.Value += attack;
+    public void ModifyAttackRate(float rate) => _attackRate.Value += rate;
+    public void ModifyTargetingRange(float range) => _targetingRange.Value += range;
 
     [JsonIgnore] public BuffValue<float> TargetingRange => _targetingRange;
     [JsonIgnore] public BuffValue<float> AttackDamage => _attackDamage;
@@ -189,9 +221,9 @@ public class GuidedMissileTowerData : EntityData, IDataModifier
         _rotationSpeed = rotationSpeed;
     }
 
-    public void ApplyAttackDamage(float attack) => _explosionDamage.Value += attack;
-    public void ApplyAttackRate(float rate) => _attackRate.Value += rate;
-    public void ApplyTargetingRange(float range) => _targetingRange.Value += range;
+    public void ModifyAttackDamage(float attack) => _explosionDamage.Value += attack;
+    public void ModifyAttackRate(float rate) => _attackRate.Value += rate;
+    public void ModifyTargetingRange(float range) => _targetingRange.Value += range;
 
     [JsonIgnore] public BuffValue<float> TargetingRange => _targetingRange;
     [JsonIgnore] public BuffValue<float> ExplosionDamage => _explosionDamage;

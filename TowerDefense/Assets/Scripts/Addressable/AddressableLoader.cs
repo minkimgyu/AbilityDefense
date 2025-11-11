@@ -14,6 +14,8 @@ public class AddressableLoader : MonoBehaviour
     {
         CardJsonData,
         EntityJsonData,
+        LevelDesignJsonData,
+
         CardIconSprite,
         SpawnableUIPrefab,
         Sound,
@@ -45,6 +47,7 @@ public class AddressableLoader : MonoBehaviour
     public Dictionary<ISpawnableUI.Name, GameObject> SpawnableUIPrefabAssets { get; private set; }
     public Dictionary<IProjectile.Name, GameObject> ProjectilePrefabAssets { get; private set; }
     public Dictionary<Entity.Name, GameObject> EntityPrefabAssets { get; private set; }
+    public Dictionary<LevelDesignType, LevelDesignData> EnemySpawnDataAsset { get; private set; }
 
 
     public Dictionary<CardData.Name, CardData> CardDataAssets { get; private set; }
@@ -60,6 +63,7 @@ public class AddressableLoader : MonoBehaviour
     {
         _assetLoaders.Add(new CardDataAssetLoader(Label.CardJsonData, (value, label) => { CardDataAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new EntityDataAssetLoader(Label.EntityJsonData, (value, label) => { EntityDataAssets = value; OnSuccess(label); }));
+        _assetLoaders.Add(new LevelDesignDataAssetLoader(Label.LevelDesignJsonData, (value, label) => { EnemySpawnDataAsset = value; OnSuccess(label); }));
 
         _assetLoaders.Add(new SpawnableUIPrefabAssetLoader(Label.SpawnableUIPrefab, (value, label) => { SpawnableUIPrefabAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new EntityPrefabAssetLoader(Label.EntityPrefab, (value, label) => { EntityPrefabAssets = value; OnSuccess(label); }));

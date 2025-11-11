@@ -1,0 +1,29 @@
+{
+  "$type": "LevelDesignData, Assembly-CSharp",
+  "spawnInfos": {
+    "$type": "System.Collections.Generic.List`1[[SpawnInfo, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$type": "SpawnInfo, Assembly-CSharp",
+        "spawnTime": 1.0,
+        "spawnPoint": {
+          "$type": "SerializableVector3, Assembly-CSharp",
+          "x": 8.48,
+          "y": 0.0,
+          "z": -7.1
+        },
+        "spawnRadius": 3.5,
+        "enemyDetails": {
+          "$type": "System.Collections.Generic.List`1[[SpawnDetail, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "SpawnDetail, Assembly-CSharp",
+              "name": "Imp",
+              "count": 3
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

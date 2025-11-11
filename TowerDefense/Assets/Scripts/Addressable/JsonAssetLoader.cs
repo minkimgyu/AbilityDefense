@@ -77,3 +77,10 @@ public class EntityDataAssetLoader : MultipleJsonAssetLoader<Entity.Name, Entity
     {
     }
 }
+
+public class LevelDesignDataAssetLoader : MultipleJsonAssetLoader<LevelDesignType, LevelDesignData>
+{
+    public LevelDesignDataAssetLoader(AddressableLoader.Label label, Action<Dictionary<LevelDesignType, LevelDesignData>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
+    {
+    }
+}

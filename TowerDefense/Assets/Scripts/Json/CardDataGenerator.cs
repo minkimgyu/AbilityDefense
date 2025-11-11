@@ -116,7 +116,7 @@ public class CardDataGenerator : BaseDataGenerator<CardData.Name>
         }
 
         // JSON 저장
-        SaveToJson(cardData, _dataName.ToString());
+        SaveToJson(cardData);
 
         Debug.Log("✅ 카드 데이터 생성 및 저장 완료");
     }

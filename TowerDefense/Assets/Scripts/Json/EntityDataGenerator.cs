@@ -66,12 +66,24 @@ public class EntityDataGenerator : BaseDataGenerator<Entity.Name>
                 );
 
                 break;
+
+            case Entity.Name.Imp:
+                entityData = new WalkUnitData
+                (
+                    name: Entity.Name.Imp,
+                    myType: ITarget.Type.Enemy,
+                    maxHp: new BuffValue<float>(0f, 30f, 100f),
+                    moveSpeed: new BuffValue<float>(0f, 5f, 100f),
+                    rotationSpeed: 25f
+                );
+                break;
+
             default:
                 break;
         }
 
         // Json 저장
-        SaveToJson(entityData, _dataName.ToString());
+        SaveToJson(entityData);
 
         Debug.Log("✅ Entity 데이터 생성 및 저장 완료");
     }

@@ -16,7 +16,31 @@ public class SearchAreaComponent
         _visited = new HashSet<Node>();
     }
 
-    bool BFS(Node startNode, AreaData areaData, out Vector2Int resultIdx, out Vector3 resultPos)
+    void Swap(List<Node> nearNodes, int i, int j)
+    {
+        Node temp = nearNodes[i];
+        nearNodes[i] = nearNodes[j];
+        nearNodes[j] = temp;
+    }
+
+    void SwapNodeInList(Node currentNode, List<Node> nearNodes, Vector2Int oldIdx)
+    {
+        if (oldIdx == -Vector2Int.one) return;
+        Vector2Int moveDir = currentNode.Index - oldIdx;
+
+        for (int i = 0; i < nearNodes.Count; i++)
+        {
+            Vector2Int dir = nearNodes[i].Index - currentNode.Index;
+
+            if (moveDir == dir)
+            {
+                Swap(nearNodes, 0, i);
+                return;
+            }
+        }
+    }
+
+    bool BFS(Node startNode, Vector2Int oldIdx, AreaData areaData, out Vector2Int resultIdx, out Vector3 resultPos)
     {
         bool isEmpty;
 
@@ -26,6 +50,9 @@ public class SearchAreaComponent
         while (_queue.Count > 0)
         {
             Node node = _queue.Dequeue();
+
+            List<Node> nearNodes = node.NearNodes;
+            SwapNodeInList(node, nearNodes, oldIdx); // 리스트 상 0번 인덱스에 이전 이동 방향 노드 배치
 
             for (int i = 0; i < node.NearNodes.Count; i++)
             {
@@ -50,7 +77,7 @@ public class SearchAreaComponent
         return false;
     }
 
-    public bool FindEmptyArea(Vector2Int idx, AreaData areaData, out Vector2Int resultIdx, out Vector3 resultPos)
+    public bool FindEmptyArea(Vector2Int idx, Vector2Int oldIdx, AreaData areaData, out Vector2Int resultIdx, out Vector3 resultPos)
     {
         _queue.Clear();
         _visited.Clear();
@@ -59,7 +86,7 @@ public class SearchAreaComponent
         resultPos = Vector3.zero;
 
         // 시작 노드 설정
-        Node startNode = _gridComponent.ReturnNode(idx);
+        Node startNode = _gridComponent.GetNode(idx);
         if (startNode == null) return false; // 실패 시 기본값 반환
 
         // 현 자리에 빈 공간이 있는지 확인
@@ -72,7 +99,7 @@ public class SearchAreaComponent
         }
 
         // BFS 탐색 시작
-        bool canFind = BFS(startNode, areaData, out resultIdx, out resultPos);
+        bool canFind = BFS(startNode, oldIdx, areaData, out resultIdx, out resultPos);
         if (canFind == true) return true;
         else return false;  // 실패 시 기본값 반환
     }

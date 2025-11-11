@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// 런타임 전용
+// 에디터 상 런타임 전용
 public static partial class EditorPlayManager
 {
 #if UNITY_EDITOR

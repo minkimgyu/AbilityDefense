@@ -46,8 +46,13 @@ namespace FlowField
             new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1),
         };
 
-        public Node ReturnNode(Vector2Int grid) { return _nodes[grid.x, grid.y]; }
-        public Node ReturnNode(int r, int c) { return _nodes[r, c]; }
+        Vector2Int[] _nearIndexes1 = new Vector2Int[]
+        {
+            new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0)
+        };
+
+        public Node GetNode(Vector2Int grid) { return _nodes[grid.x, grid.y]; }
+        public Node GetNode(int r, int c) { return _nodes[r, c]; }
 
         int[,] _nodePrefixSum; // r, c
 
@@ -108,22 +113,6 @@ namespace FlowField
             else return false;
         }
 
-        //public bool IsEmptyArea(Vector2Int idx, AreaData areaData)
-        //{
-        //    for (int i = 0; i < areaData.RowSize; i++)
-        //    {
-        //        for (int j = 0; j < areaData.ColSize; j++)
-        //        {
-        //            Vector2Int checkIdx = new Vector2Int(idx.x + i - areaData.Pivot.x, idx.y + j - areaData.Pivot.y);
-        //            if (IsOutOfRange(checkIdx)) return false;
-        //            if (_nodes[checkIdx.x, checkIdx.y].CurrentState == Node.State.Block) return false;
-        //        }
-        //    }
-
-        //    return true;
-        //}
-
-
         public void ResetNodeWeight()
         {
             for (int i = 0; i < _grid.RowSize; i++)
@@ -173,10 +162,10 @@ namespace FlowField
             }
         }
 
-        public Vector2 ReturnClampedRange(Vector2 pos)
+        public Vector2 GetClampedRange(Vector2 pos)
         {
-            Vector2 topLeftPos = ReturnNode(0, 0).LocalPos;
-            Vector2 bottomRightPos = ReturnNode(_grid.RowSize - 1, _grid.ColSize - 1).LocalPos;
+            Vector2 topLeftPos = GetNode(0, 0).WorldPos;
+            Vector2 bottomRightPos = GetNode(_grid.RowSize - 1, _grid.ColSize - 1).WorldPos;
 
             // 반올림하고 범위 안에 맞춰줌
             // 이 부분은 GridSize 바뀌면 수정해야함
@@ -186,49 +175,61 @@ namespace FlowField
             return new Vector2(xPos, yPos);
         }
 
-        public Vector2 ReturnNodeDirection(Vector2 worldPos)
+        public Vector2 GetNodeDirection(Vector2 worldPos)
         {
-            Vector2Int index = ReturnNodeIndex(worldPos);
-            Node node = ReturnNode(index);
+            Vector2Int index = GetNodeIndex(worldPos);
+            Node node = GetNode(index);
             return node.DirectionToMove;
         }
 
-        public Vector2Int ReturnNodeIndex(Vector2 worldPos)
+        Vector2Int FixToClampRange(Vector2 worldPos)
         {
-            Vector2 clampedPos = ReturnClampedRange(worldPos);
-            Vector2 topLeftPos = ReturnNode(0, 0).LocalPos;
-
+            Vector2 topLeftPos = GetNode(0, 0).WorldPos;
+            Vector2 clampedPos = GetClampedRange(worldPos);
             int r = Mathf.RoundToInt(Mathf.Abs(topLeftPos.y - clampedPos.y) / _nodeSize);
             int c = Mathf.RoundToInt(Mathf.Abs(topLeftPos.x - clampedPos.x) / _nodeSize); // 인덱스이므로 1 빼준다.
+
             return new Vector2Int(r, c);
         }
 
-        public Vector2 ReturnClampPos(Vector2 worldPos)
+        public Vector2Int GetNodeIndex(Vector2 worldPos)
         {
-            Vector2Int grid = ReturnNodeIndex(worldPos);
-            return _nodes[grid.x, grid.y].LocalPos;
+            Vector2 clampedPos = GetClampedRange(worldPos);
+            return FixToClampRange(clampedPos);
+        }
+
+        public Vector2Int GetNodeIndex(Vector3 worldPos)
+        {
+            Vector2 clampedPos = GetClampedRange(new Vector2(worldPos.x, worldPos.z));
+            return FixToClampRange(clampedPos);
+        }
+
+        public Vector2 GetClampPos(Vector2 worldPos)
+        {
+            Vector2Int grid = GetNodeIndex(worldPos);
+            return _nodes[grid.x, grid.y].WorldPos;
         }
 
         bool IsOutOfRange(Vector2Int index) { return index.x < 0 || index.y < 0 || index.x >= _grid.RowSize || index.y >= _grid.ColSize; }
 
-        public List<Node> ReturnNearNodes(Vector2Int index)
+        public List<Node> GetNearNodes(Vector2Int index)
         {
             List<Node> nearNodes = new List<Node>();
 
-            for (int i = 0; i < _nearIndexes.Length; i++)
+            for (int i = 0; i < _nearIndexes1.Length; i++)
             {
-                Vector2Int nearNodeIndex = index + _nearIndexes[i];
+                Vector2Int nearNodeIndex = index + _nearIndexes1[i];
                 bool outOfRange = IsOutOfRange(nearNodeIndex);
                 if (outOfRange == true) continue;
 
-                Node node = ReturnNode(nearNodeIndex);
+                Node node = GetNode(nearNodeIndex);
                 nearNodes.Add(node);
             }
 
             return nearNodes;
         }
 
-        public NearNodeData ReturnMovableNodeData(Vector2Int index)
+        public NearNodeData GetMovableNodeData(Vector2Int index)
         {
             List<Node> nearNodes = new List<Node>();
             bool haveBlockNode = false;
@@ -253,26 +254,26 @@ namespace FlowField
                 switch (i)
                 {
                     case 0:
-                        topIsBlock = ReturnNode(index + _nearIndexes[1]).CurrentState == Node.State.Block;
-                        leftIsBlock = ReturnNode(index + _nearIndexes[3]).CurrentState == Node.State.Block;
+                        topIsBlock = GetNode(index + _nearIndexes[1]).CurrentState == Node.State.Block;
+                        leftIsBlock = GetNode(index + _nearIndexes[3]).CurrentState == Node.State.Block;
                         if (topIsBlock || leftIsBlock) canPass = false;
 
                         break;
                     case 2:
-                        topIsBlock = ReturnNode(index + _nearIndexes[1]).CurrentState == Node.State.Block;
-                        rightIsBlock = ReturnNode(index + _nearIndexes[4]).CurrentState == Node.State.Block;
+                        topIsBlock = GetNode(index + _nearIndexes[1]).CurrentState == Node.State.Block;
+                        rightIsBlock = GetNode(index + _nearIndexes[4]).CurrentState == Node.State.Block;
                         if (topIsBlock || rightIsBlock) canPass = false;
 
                         break;
                     case 5:
-                        leftIsBlock = ReturnNode(index + _nearIndexes[3]).CurrentState == Node.State.Block;
-                        bottomIsBlock = ReturnNode(index + _nearIndexes[6]).CurrentState == Node.State.Block;
+                        leftIsBlock = GetNode(index + _nearIndexes[3]).CurrentState == Node.State.Block;
+                        bottomIsBlock = GetNode(index + _nearIndexes[6]).CurrentState == Node.State.Block;
                         if (leftIsBlock || bottomIsBlock) canPass = false;
 
                         break;
                     case 7:
-                        rightIsBlock = ReturnNode(index + _nearIndexes[4]).CurrentState == Node.State.Block;
-                        bottomIsBlock = ReturnNode(index + _nearIndexes[6]).CurrentState == Node.State.Block;
+                        rightIsBlock = GetNode(index + _nearIndexes[4]).CurrentState == Node.State.Block;
+                        bottomIsBlock = GetNode(index + _nearIndexes[6]).CurrentState == Node.State.Block;
                         if (rightIsBlock || bottomIsBlock) canPass = false;
 
                         break;
@@ -282,7 +283,7 @@ namespace FlowField
 
                 if (canPass == false) continue; // 못 가는 지역이라면 건너뛰기
 
-                Node node = ReturnNode(nearNodeIndex);
+                Node node = GetNode(nearNodeIndex);
                 if (node.CurrentState == Node.State.Block)
                 {
                     haveBlockNode = true;
@@ -308,11 +309,11 @@ namespace FlowField
             {
                 for (int j = 0; j < _grid.ColSize; j++)
                 {
-                    NearNodeData neaNodeData = ReturnMovableNodeData(new Vector2Int(i, j));
+                    NearNodeData neaNodeData = GetMovableNodeData(new Vector2Int(i, j));
                     _nodes[i, j].MovableNodes = neaNodeData.NearNodes;
                     _nodes[i, j].HaveBlockNodeInNeighbor = neaNodeData.HaveBlockNodeInNeighbor;
 
-                    _nodes[i, j].NearNodes = ReturnNearNodes(new Vector2Int(i, j));
+                    _nodes[i, j].NearNodes = GetNearNodes(new Vector2Int(i, j));
                 }
             }
         }

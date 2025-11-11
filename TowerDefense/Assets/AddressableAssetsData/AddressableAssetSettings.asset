@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 8be30c4dba2f86e4ea2ebee21fc8bb66
   m_currentHash:
     serializedVersion: 2
-    Hash: 1ba8429ec0d306a825cf2579dd8a1fa7
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8ff1afd4186473449a48e333c3a9aab, type: 2}
   - {fileID: 11400000, guid: 32ffc408505fd9743a022de82cc65f34, type: 2}
   - {fileID: 11400000, guid: 5d54b2b7cca6563459098b3b7ea21e95, type: 2}
+  - {fileID: 11400000, guid: 2edf6d16fe37a3147a40f8edbb921354, type: 2}
   - {fileID: 11400000, guid: 17787e27ab6bfda4f84ac3df8d92bc42, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
@@ -96,6 +97,7 @@ MonoBehaviour:
     - CardIconSprite
     - SpawnableUIPrefab
     - EntityPrefab
+    - LevelDesignJsonData
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 345e85e7e779ce7499c83b44757cfc5b, type: 2}

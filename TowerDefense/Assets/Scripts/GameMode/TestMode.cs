@@ -1,3 +1,4 @@
+using FlowField;
 using Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,9 @@ public class TestMode : BaseMode
     [SerializeField] FlowField.GridComponent _gridComponent;
     [SerializeField] PlayerController _playerController;
     [SerializeField] CardController _cardController;
+    [SerializeField] Transform _portal;
+    [SerializeField] EnemySpawner _enemySpawner;
+    [SerializeField] LevelDesignType _levelDesignType = LevelDesignType.Test;
 
     FlowField.FlowField _flowField;
 
@@ -25,14 +29,22 @@ public class TestMode : BaseMode
             addressableLoader.ProjectilePrefabAssets
         );
 
+        _gridComponent.Initialize();
+        _flowField = new FlowField.FlowField(_gridComponent);
+
+        Vector2Int idx = _gridComponent.GetNodeIndex(_portal.position);
+        Debug.Log(idx);
+        _flowField.FindPath(idx);
+
+        FlowField.PathTracker pathTracker = new FlowField.PathTracker(_gridComponent);
         EntityFactory entityFactory = new EntityFactory(
             addressableLoader.EntityPrefabAssets,
             addressableLoader.EntityDataAssets,
-            projectileFactory
+            projectileFactory,
+            pathTracker
         );
 
-        _gridComponent.Initialize();
-        _flowField = new FlowField.FlowField(_gridComponent);
+        _enemySpawner.Initialize(addressableLoader.EnemySpawnDataAsset[_levelDesignType], entityFactory);
         _playerController.Initialize(_gridComponent, entityFactory);
 
         _cardController.Initialize(addressableLoader.CardDataAssets, cardUIFactory);

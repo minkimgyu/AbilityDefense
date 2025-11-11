@@ -9,16 +9,24 @@ public class EntityFactory
     public EntityFactory(
         Dictionary<Entity.Name, GameObject> entityPrefab, 
         Dictionary<Entity.Name, EntityData> towerData,
-        ProjectileFactory projectileFactory)
+        ProjectileFactory projectileFactory,
+        FlowField.PathTracker pathTracker)
     {
         _towerCreater = new Dictionary<Entity.Name, EntityCreater>()
         {
-            { 
+            {
                 Entity.Name.GuidedMissileTower, new GuidedMissileTowerCreater(
-                    entityPrefab[Entity.Name.GuidedMissileTower], 
+                    entityPrefab[Entity.Name.GuidedMissileTower],
                     (GuidedMissileTowerData)towerData[Entity.Name.GuidedMissileTower],
                     projectileFactory
-                ) 
+                )
+            },
+             {
+                Entity.Name.Imp, new WalkUnitCreater(
+                    entityPrefab[Entity.Name.Imp],
+                    pathTracker,
+                    (WalkUnitData)towerData[Entity.Name.Imp]
+                )
             },
         };
     }

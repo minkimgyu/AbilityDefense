@@ -15,10 +15,10 @@ namespace FlowField
             _visited = new HashSet<Node>();
         }
 
-        Vector2 TopLeft = new Vector2(-1, 1);
-        Vector2 TopRight = new Vector2(1, 1);
-        Vector2 BottomLeft = new Vector2(-1, -1);
-        Vector2 BottomRight = new Vector2(1, -1);
+        Vector2Int TopLeft = new Vector2Int(-1, 1);
+        Vector2Int TopRight = new Vector2Int(1, 1);
+        Vector2Int BottomLeft = new Vector2Int(-1, -1);
+        Vector2Int BottomRight = new Vector2Int(1, -1);
 
         Heap<Node> _heap;
         HashSet<Node> _visited;
@@ -26,7 +26,7 @@ namespace FlowField
         public void FindPath(Vector2Int index)
         {
             _gridComponent.ResetNodeWeight();
-            Node startNode = _gridComponent.ReturnNode(index);
+            Node startNode = _gridComponent.GetNode(index);
             startNode.PathWeight = 0;
 
             _heap.Insert(startNode); // 시작 노드 삽입
@@ -42,7 +42,11 @@ namespace FlowField
                 {
                     float currentWeight = nearNodes[i].Weight;
 
-                    Vector2 directionVec = nearNodes[i].LocalPos - minNode.LocalPos;
+                    Vector2Int directionVec = new Vector2Int(
+                        nearNodes[i].Index.x - minNode.Index.x,
+                        nearNodes[i].Index.y - minNode.Index.y
+                    );
+
                     if (directionVec == TopLeft ||
                         directionVec == TopRight ||
                         directionVec == BottomLeft ||

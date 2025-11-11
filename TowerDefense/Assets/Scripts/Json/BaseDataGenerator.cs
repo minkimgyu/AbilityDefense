@@ -1,9 +1,9 @@
 ﻿#if UNITY_EDITOR
 using UnityEngine;
 
-public abstract class BaseDataGenerator<T> : MonoBehaviour where T : System.Enum
+public abstract class BaseDataGenerator<T1> : MonoBehaviour where T1 : System.Enum
 {
-    [SerializeField] protected T _dataName;
+    [SerializeField] protected T1 _dataName;
     [SerializeField] string _savePath = Application.dataPath + "/JsonDatas";
 
     /// <summary>
@@ -14,7 +14,7 @@ public abstract class BaseDataGenerator<T> : MonoBehaviour where T : System.Enum
     /// <summary>
     /// 데이터를 Json으로 저장하는 함수
     /// </summary>
-    protected void SaveToJson<T>(T data, string fileName)
+    protected void SaveToJson<T2>(T2 data)
     {
         JsonDataSaver _jsonDataSaver = new JsonDataSaver();
 
@@ -24,8 +24,9 @@ public abstract class BaseDataGenerator<T> : MonoBehaviour where T : System.Enum
             return;
         }
 
-        _jsonDataSaver.SaveToJson(data, _savePath, fileName);
-        Debug.Log($"✅ {fileName}.json 저장 완료");
+        string dataName = _dataName.ToString();
+        _jsonDataSaver.SaveToJson(data, _savePath, dataName);
+        Debug.Log($"✅ {dataName}.json 저장 완료");
     }
 }
 #endif
