@@ -9,9 +9,11 @@ public struct SpawnPointField
 {
     [SerializeField] private Transform _spawnPoint;                // 스폰 위치
     [SerializeField] private float _spawnRadius;               // 스폰 반경
+    [SerializeField] private Color _spawnRadiusColor;               // 스폰 반경
 
     public float SpawnRadius => _spawnRadius;
     public Transform SpawnPoint => _spawnPoint;
+    public Color SpawnRadiusColor => _spawnRadiusColor;
 }
 
 [Serializable]
@@ -59,10 +61,10 @@ public class LevelDesignDataGenerator : BaseDataGenerator<LevelDesignType>
         if(_spawnPointField == null) return;
         if(_spawnPointField.Count == 0) return;
 
-        Gizmos.color = Color.red;
         for (int i = 0; i < _spawnPointField.Count; i++)
         {
             if(_spawnPointField[i].SpawnPoint == null) continue;
+            Gizmos.color = _spawnPointField[i].SpawnRadiusColor;
             Gizmos.DrawWireSphere(_spawnPointField[i].SpawnPoint.position, _spawnPointField[i].SpawnRadius);
         }
     }

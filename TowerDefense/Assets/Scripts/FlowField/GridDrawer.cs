@@ -40,19 +40,19 @@ namespace FlowField
             DownRight
         }
 
-        public Dictionary<Vector2, Direction> directions = new Dictionary<Vector2, Direction>()
+        public Dictionary<Vector2Int, Direction> directions = new Dictionary<Vector2Int, Direction>()
         {
-            { new Vector2(-1, 1).normalized, Direction.UpLeft },
-            { new Vector2(0, 1), Direction.Up },
-            { new Vector2(1, 1).normalized, Direction.UpRight },
+            { new Vector2Int(-1, 1), Direction.UpLeft },
+            { new Vector2Int(0, 1), Direction.Up },
+            { new Vector2Int(1, 1), Direction.UpRight },
 
-            { new Vector2(-1, 0), Direction.Left },
-            { new Vector2(0, 0), Direction.Current },
-            { new Vector2(1, 0), Direction.Right },
+            { new Vector2Int(-1, 0), Direction.Left },
+            { new Vector2Int(0, 0), Direction.Current },
+            { new Vector2Int(1, 0), Direction.Right },
 
-            { new Vector2(-1, -1).normalized, Direction.DownLeft },
-            { new Vector2(0, -1), Direction.Down },
-            { new Vector2(1, -1).normalized, Direction.DownRight },
+            { new Vector2Int(-1, -1), Direction.DownLeft },
+            { new Vector2Int(0, -1), Direction.Down },
+            { new Vector2Int(1, -1), Direction.DownRight },
         };
 
         public void Initialize(Node[,] nodes, Grid grid)
@@ -87,13 +87,11 @@ namespace FlowField
             {
                 for (int j = 0; j < _grid.ColSize; j++)
                 {
-                    Vector3 toV2 = new Vector3(_nodes[i, j].LocalPos.x, 0, _nodes[i, j].LocalPos.y);
-
                     if (_showType == ShowType.Direction)
                     {
                         if (_nodes[i, j].CurrentState == Node.State.Block)
                         {
-                            Handles.Label(toV2, "X", blockStyle);
+                            Handles.Label(_nodes[i, j].WorldPos, "X", blockStyle);
                         }
                         else
                         {
@@ -101,31 +99,31 @@ namespace FlowField
                             switch (direction)
                             {
                                 case Direction.UpLeft:
-                                    Handles.Label(toV2, "¢Ø", emptyStyle);
+                                    Handles.Label(_nodes[i, j].WorldPos, "¢Ø", emptyStyle);
                                     break;
                                 case Direction.Up:
-                                    Handles.Label(toV2, "¡è", emptyStyle);
+                                    Handles.Label(_nodes[i, j].WorldPos, "¡è", emptyStyle);
                                     break;
                                 case Direction.UpRight:
-                                    Handles.Label(toV2, "¢Ö", emptyStyle);
+                                    Handles.Label(_nodes[i, j].WorldPos, "¢Ö", emptyStyle);
                                     break;
                                 case Direction.Left:
-                                    Handles.Label(toV2, "¡ç", emptyStyle);
+                                    Handles.Label(_nodes[i, j].WorldPos, "¡ç", emptyStyle);
                                     break;
                                 case Direction.Current:
-                                    Handles.Label(toV2, "¡Û", startPointStyle);
+                                    Handles.Label(_nodes[i, j].WorldPos, "¡Û", startPointStyle);
                                     break;
                                 case Direction.Right:
-                                    Handles.Label(toV2, "¡æ", emptyStyle);
+                                    Handles.Label(_nodes[i, j].WorldPos, "¡æ", emptyStyle);
                                     break;
                                 case Direction.DownLeft:
-                                    Handles.Label(toV2, "¢×", emptyStyle);
+                                    Handles.Label(_nodes[i, j].WorldPos, "¢×", emptyStyle);
                                     break;
                                 case Direction.Down:
-                                    Handles.Label(toV2, "¡é", emptyStyle);
+                                    Handles.Label(_nodes[i, j].WorldPos, "¡é", emptyStyle);
                                     break;
                                 case Direction.DownRight:
-                                    Handles.Label(toV2, "¢Ù", emptyStyle);
+                                    Handles.Label(_nodes[i, j].WorldPos, "¢Ù", emptyStyle);
                                     break;
                                 default:
                                     break;
@@ -137,10 +135,10 @@ namespace FlowField
                         switch (_nodes[i, j].CurrentState)
                         {
                             case Node.State.Empty:
-                                Handles.Label(toV2, "¡Û", emptyStyle);
+                                Handles.Label(_nodes[i, j].WorldPos, "¡Û", emptyStyle);
                                 break;
                             case Node.State.Block:
-                                Handles.Label(toV2, "X", blockStyle);
+                                Handles.Label(_nodes[i, j].WorldPos, "X", blockStyle);
                                 break;
                             default:
                                 break;
@@ -151,10 +149,10 @@ namespace FlowField
                         switch (_nodes[i, j].CurrentState)
                         {
                             case Node.State.Empty:
-                                Handles.Label(toV2, _nodes[i, j].PathWeight.ToString(), emptyStyle);
+                                Handles.Label(_nodes[i, j].WorldPos, _nodes[i, j].PathWeight.ToString(), emptyStyle);
                                 break;
                             case Node.State.Block:
-                                Handles.Label(toV2, _nodes[i, j].PathWeight.ToString(), blockStyle);
+                                Handles.Label(_nodes[i, j].WorldPos, _nodes[i, j].PathWeight.ToString(), blockStyle);
                                 break;
                             default:
                                 break;

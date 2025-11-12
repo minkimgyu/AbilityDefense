@@ -13,21 +13,17 @@ namespace FlowField
             Block,
         }
 
-        public Node(Vector2 pos, Vector2Int index, State state)
+        public Node(Vector3 pos, Vector2Int index, State state)
         {
-            _localPos = pos;
+            _worldPos = pos;
             _index = index;
             _state = state;
             _pathWeight = int.MaxValue;
             HaveBlockNodeInNeighbor = false;
         }
 
-        // 그리드 상 위치
-        Vector2 _localPos;
-        public Vector2 LocalPos { get { return _localPos; } }
-
-        // 실제 위치
-        public Vector3 WorldPos { get { return new Vector3(_localPos.x, 0, _localPos.y); } }
+        Vector3 _worldPos;
+        public Vector3 WorldPos { get { return _worldPos; } }
 
         Vector2Int _index; // 그리드 상 인덱스
         public Vector2Int Index { get { return _index; } }
@@ -48,8 +44,8 @@ namespace FlowField
             }
         }
 
-        Vector2 directionToMove;
-        public Vector2 DirectionToMove { get { return directionToMove; } set { directionToMove = value; } } // 노드의 방향성
+        Vector2Int directionToMove;
+        public Vector2Int DirectionToMove { get { return directionToMove; } set { directionToMove = value; } } // 노드의 방향성
 
 
         float _pathWeight; // 다익스트라로 생성되는 가중치

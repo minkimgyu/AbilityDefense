@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 namespace FlowField
 {
@@ -40,50 +41,68 @@ namespace FlowField
             Vector2Int minBound = new Vector2Int(int.MaxValue, int.MaxValue);
             Vector2Int maxBound = new Vector2Int(int.MinValue, int.MinValue);
 
-            foreach (Transform t in groundTiles)
+            for (int i = 0; i < groundTiles.Length; i++)
             {
-                if (t == _groundTileParent.transform) continue;
+                if (_groundTileParent.transform == groundTiles[i]) continue;
 
-                Vector3Int cellPos = new Vector3Int((int)t.position.x, (int)t.position.y, (int)t.position.z);
+                Vector3Int cellPos = new Vector3Int(
+                    Mathf.RoundToInt(groundTiles[i].position.x),
+                    Mathf.RoundToInt(groundTiles[i].position.y),
+                    Mathf.RoundToInt(groundTiles[i].position.z)
+                );
+
                 if (cellPos.x < minBound.x) minBound.x = cellPos.x;
                 if (cellPos.z < minBound.y) minBound.y = cellPos.z;
                 if (cellPos.x > maxBound.x) maxBound.x = cellPos.x;
                 if (cellPos.z > maxBound.y) maxBound.y = cellPos.z;
             }
 
-            _grid = new Grid(maxBound.y - minBound.y + 1, maxBound.x - minBound.x + 1);
-            _nodes = new Node[_grid.RowSize, _grid.ColSize];
+            int rowSize = maxBound.y - minBound.y + 1; // Z 방향
+            int colSize = maxBound.x - minBound.x + 1; // X 방향
+
+            _grid = new Grid(rowSize, colSize);
+            _nodes = new Node[rowSize, colSize];
 
             Transform[] wallTiles = _wallTileParent.GetComponentsInChildren<Transform>();
 
-            foreach (Transform t in wallTiles)
+            for (int i = 0; i < wallTiles.Length; i++)
             {
-                if (t == _wallTileParent.transform) continue;
+                if (_wallTileParent.transform == wallTiles[i]) continue;
 
-                Vector2Int pos = new Vector2Int((int)t.position.x, (int)t.position.z);
+                Vector2Int pos = new Vector2Int(
+                   Mathf.RoundToInt(wallTiles[i].position.x),
+                   Mathf.RoundToInt(wallTiles[i].position.z)
+                );
+
                 _isWall[pos] = true;
             }
 
-            for (int i = 0; i < _grid.RowSize; i++)
+            // 3️ 기준점(Top-Left) 잡기
+            // minBound는 (왼쪽 아래)이므로,
+            // Top-Left는 (x = minBound.x, z = maxBound.y)
+            Vector3 topLeftOrigin = new Vector3(minBound.x, 0f, maxBound.y);
+
+            // 4️ 노드 생성
+            for (int row = 0; row < rowSize; row++)
             {
-                for (int j = 0; j < _grid.ColSize; j++)
+                for (int col = 0; col < colSize; col++)
                 {
-                    Vector2Int pos = new Vector2Int(j, -i);
-                    Vector2Int idx = new Vector2Int(i, j);
+                    // 좌측 상단에서 (col, row)만큼 이동
+                    float worldX = topLeftOrigin.x + col;
+                    float worldZ = topLeftOrigin.z - row; // z는 위→아래 방향 반전
 
-                    Node node;
-                    if (_isWall.ContainsKey(pos) == true && _isWall[pos] == true)
-                    {
-                        node = new Node(pos, idx, Node.State.Block);
-                    }
-                    else
-                    {
-                        node = new Node(pos, idx, Node.State.Empty);
-                    }
+                    Vector3 worldPos = new Vector3(worldX, 0f, worldZ);
+                    Vector2Int index = new Vector2Int(row, col);
 
-                    _nodes[i, j] = node;
-                    // Ÿ���� ���ٸ� �ٴ�
-                    // Ÿ���� �����Ѵٸ� ��
+                    Vector2Int wallKey = new Vector2Int(
+                        Mathf.RoundToInt(worldX),
+                        Mathf.RoundToInt(worldZ)
+                    );
+
+                    Node.State state = Node.State.Empty;
+                    if(_isWall.ContainsKey(wallKey) && _isWall[wallKey] == true) state = Node.State.Block;
+
+                    _nodes[row, col] = new Node(worldPos, index, state);
                 }
             }
 

@@ -132,11 +132,10 @@ namespace FlowField
                 {
                     if (startNode == _nodes[i, j])
                     {
-                        startNode.DirectionToMove = Vector2.zero;
+                        startNode.DirectionToMove = Vector2Int.zero;
                         continue;
                     }
 
-                    Vector2 direction;
                     List<Node> nearNodes = _nodes[i, j].MovableNodes;
                     float minWeight = float.MaxValue;
                     int minIndex = 0;
@@ -155,59 +154,55 @@ namespace FlowField
                         }
                     }
 
-                    direction = (nearNodes[minIndex].LocalPos - _nodes[i, j].LocalPos).normalized;
+                    Vector2Int deltaIdx = nearNodes[minIndex].Index - _nodes[i, j].Index;
+                    // 인덱스 -> XZ 변환: X = dCol, Z = -dRow (row은 위->아래 방향)
 
-                    _nodes[i, j].DirectionToMove = direction;
+                    Vector2Int dir2D = new Vector2Int(deltaIdx.y, -deltaIdx.x);
+                    _nodes[i, j].DirectionToMove = dir2D;
                 }
             }
         }
 
-        public Vector2 GetClampedRange(Vector2 pos)
+        public Vector3 GetClampedRange(Vector3 worldPos)
         {
-            Vector2 topLeftPos = GetNode(0, 0).WorldPos;
-            Vector2 bottomRightPos = GetNode(_grid.RowSize - 1, _grid.ColSize - 1).WorldPos;
+            Vector3 topLeftPos = GetNode(0, 0).WorldPos;
+            Vector3 bottomRightPos = GetNode(_grid.RowSize - 1, _grid.ColSize - 1).WorldPos;
 
             // 반올림하고 범위 안에 맞춰줌
             // 이 부분은 GridSize 바뀌면 수정해야함
-            float xPos = Mathf.Clamp(pos.x, topLeftPos.x, bottomRightPos.x);
-            float yPos = Mathf.Clamp(pos.y, bottomRightPos.y, topLeftPos.y);
+            float x = Mathf.Clamp(worldPos.x, topLeftPos.x, bottomRightPos.x);
+            float z = Mathf.Clamp(worldPos.z, bottomRightPos.z, topLeftPos.z);
 
-            return new Vector2(xPos, yPos);
+            // y 좌표는 고려하지 않음
+            return new Vector3(x, 0, z);
         }
 
-        public Vector2 GetNodeDirection(Vector2 worldPos)
+        public Vector2 GetNodeDirection(Vector3 worldPos)
         {
             Vector2Int index = GetNodeIndex(worldPos);
             Node node = GetNode(index);
             return node.DirectionToMove;
         }
 
-        Vector2Int FixToClampRange(Vector2 worldPos)
+        Vector2Int GetClampIndex(Vector3 worldPos)
         {
-            Vector2 topLeftPos = GetNode(0, 0).WorldPos;
-            Vector2 clampedPos = GetClampedRange(worldPos);
-            int r = Mathf.RoundToInt(Mathf.Abs(topLeftPos.y - clampedPos.y) / _nodeSize);
+            Vector3 topLeftPos = GetNode(0, 0).WorldPos;
+            Vector3 clampedPos = GetClampedRange(worldPos);
+
+            int r = Mathf.RoundToInt(Mathf.Abs(topLeftPos.z - clampedPos.z) / _nodeSize);
             int c = Mathf.RoundToInt(Mathf.Abs(topLeftPos.x - clampedPos.x) / _nodeSize); // 인덱스이므로 1 빼준다.
+
+            // 경계 초과 시 안전하게 Clamp
+            r = Mathf.Clamp(r, 0, _grid.RowSize - 1);
+            c = Mathf.Clamp(c, 0, _grid.ColSize - 1);
 
             return new Vector2Int(r, c);
         }
 
-        public Vector2Int GetNodeIndex(Vector2 worldPos)
-        {
-            Vector2 clampedPos = GetClampedRange(worldPos);
-            return FixToClampRange(clampedPos);
-        }
-
         public Vector2Int GetNodeIndex(Vector3 worldPos)
         {
-            Vector2 clampedPos = GetClampedRange(new Vector2(worldPos.x, worldPos.z));
-            return FixToClampRange(clampedPos);
-        }
-
-        public Vector2 GetClampPos(Vector2 worldPos)
-        {
-            Vector2Int grid = GetNodeIndex(worldPos);
-            return _nodes[grid.x, grid.y].WorldPos;
+            Vector3 clampedPos = GetClampedRange(worldPos);
+            return GetClampIndex(clampedPos);
         }
 
         bool IsOutOfRange(Vector2Int index) { return index.x < 0 || index.y < 0 || index.x >= _grid.RowSize || index.y >= _grid.ColSize; }

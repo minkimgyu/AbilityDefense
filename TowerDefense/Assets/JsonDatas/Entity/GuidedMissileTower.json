@@ -10,28 +10,28 @@
   "targetingRange": {
     "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
     "min": 0.0,
-    "max": 4.0,
+    "max": 100.0,
     "current": 4.0
   },
   "explosionDamage": {
     "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
     "min": 0.0,
-    "max": 18.0,
+    "max": 100.0,
     "current": 18.0
   },
   "explosionRange": {
     "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
     "min": 0.0,
-    "max": 2.0,
+    "max": 100.0,
     "current": 2.0
   },
   "attackRate": {
     "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
     "min": 0.0,
-    "max": 1.0,
+    "max": 100.0,
     "current": 1.0
   },
-  "rotationSpeed": 25.0,
+  "rotationSpeed": 300.0,
   "name": "GuidedMissileTower",
   "myType": "Ally"
 }

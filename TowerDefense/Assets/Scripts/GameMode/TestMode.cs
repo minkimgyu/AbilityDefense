@@ -32,9 +32,8 @@ public class TestMode : BaseMode
         _gridComponent.Initialize();
         _flowField = new FlowField.FlowField(_gridComponent);
 
-        Vector2Int idx = _gridComponent.GetNodeIndex(_portal.position);
-        Debug.Log(idx);
-        _flowField.FindPath(idx);
+        Debug.Log(_portal.position);
+        _flowField.FindPath(_portal.position);
 
         FlowField.PathTracker pathTracker = new FlowField.PathTracker(_gridComponent);
         EntityFactory entityFactory = new EntityFactory(

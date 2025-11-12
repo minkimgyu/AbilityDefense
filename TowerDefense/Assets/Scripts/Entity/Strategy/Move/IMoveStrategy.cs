@@ -6,5 +6,6 @@ public interface IMoveStrategy
 {
     void RotateTo(Vector3 targetPosition) { }
     void InjectTurretTransform(Transform turretTransform) { }
+    void InjectAnimator(Animator animator) { }
     void OnUpdate() { }
 }

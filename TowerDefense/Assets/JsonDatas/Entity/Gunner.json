@@ -4,19 +4,19 @@
   "targetingRange": {
     "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
     "min": 0.0,
-    "max": 2.0,
+    "max": 100.0,
     "current": 2.0
   },
   "attackDamage": {
     "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
     "min": 0.0,
-    "max": 5.0,
+    "max": 100.0,
     "current": 5.0
   },
   "attackRate": {
     "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
     "min": 0.0,
-    "max": 1.2,
+    "max": 100.0,
     "current": 1.2
   },
   "targetTypes": {
@@ -25,7 +25,7 @@
       "Enemy"
     ]
   },
-  "rotationSpeed": 25.0,
+  "rotationSpeed": 300.0,
   "name": "Gunner",
   "myType": "Ally"
 }

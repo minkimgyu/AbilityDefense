@@ -63,7 +63,7 @@ public class SearchAreaComponent
                 if (isEmpty == true)
                 {
                     resultIdx = node.NearNodes[i].Index;
-                    resultPos = node.NearNodes[i].LocalPos;
+                    resultPos = node.NearNodes[i].WorldPos;
                     return true;
                 }
 

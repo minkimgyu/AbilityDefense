@@ -28,10 +28,10 @@ public class EntityDataGenerator : BaseDataGenerator<Entity.Name>
                    myType: ITarget.Type.Ally,
                    targetTypes: new List<ITarget.Type> { ITarget.Type.Enemy },
                    projectileName: IProjectile.Name.Bullet,
-                   attackDamage: new BuffValue<float>(0f, 5f, 100f),
-                   targetingRange: new BuffValue<float>(0f, 2f, 100f),
-                   attackRate: new BuffValue<float>(0f, 1.2f, 100f),
-                   rotationSpeed: 25f
+                   attackDamage: new BuffValue<float>(0f, 100f, 5f),
+                   targetingRange: new BuffValue<float>(0f, 100f, 2f),
+                   attackRate: new BuffValue<float>(0f, 100f, 1.2f),
+                   rotationSpeed: 300f
                );
 
                 break;
@@ -43,10 +43,10 @@ public class EntityDataGenerator : BaseDataGenerator<Entity.Name>
                     myType: ITarget.Type.Ally,
                     targetTypes: new List<ITarget.Type> { ITarget.Type.Enemy },
                     projectileName: IProjectile.Name.Bullet,
-                    attackDamage: new BuffValue<float>(0f, 8f, 100f),
-                    targetingRange: new BuffValue<float>(0f, 4f, 100f),
-                    attackRate: new BuffValue<float>(0f, 1.5f, 100f),
-                   rotationSpeed: 25f
+                    attackDamage: new BuffValue<float>(0f, 100f, 8f),
+                    targetingRange: new BuffValue<float>(0f, 100f, 4f),
+                    attackRate: new BuffValue<float>(0f, 100f, 1.5f),
+                   rotationSpeed: 300f
                 );
 
                 break;
@@ -58,11 +58,11 @@ public class EntityDataGenerator : BaseDataGenerator<Entity.Name>
                     myType: ITarget.Type.Ally,
                     targetTypes: new List<ITarget.Type> { ITarget.Type.Enemy },
                     projectileName: IProjectile.Name.Missile,
-                    explosionDamage: new BuffValue<float>(0f, 18f, 100f),
-                    explosionRange: new BuffValue<float>(0f, 2f, 100f),
-                    targetingRange: new BuffValue<float>(0f, 4f, 100f),
-                    attackRate: new BuffValue<float>(0f, 1f, 100f),
-                   rotationSpeed: 25f
+                    explosionDamage: new BuffValue<float>(0f, 100f, 18f),
+                    explosionRange: new BuffValue<float>(0f, 100f, 2f),
+                    targetingRange: new BuffValue<float>(0f, 100f, 4f),
+                    attackRate: new BuffValue<float>(0f, 100f, 1f),
+                   rotationSpeed: 300f
                 );
 
                 break;
@@ -72,9 +72,9 @@ public class EntityDataGenerator : BaseDataGenerator<Entity.Name>
                 (
                     name: Entity.Name.Imp,
                     myType: ITarget.Type.Enemy,
-                    maxHp: new BuffValue<float>(0f, 30f, 100f),
-                    moveSpeed: new BuffValue<float>(0f, 5f, 100f),
-                    rotationSpeed: 25f
+                    maxHp: new BuffValue<float>(0f, 100f, 30f),
+                    moveSpeed: new BuffValue<float>(0f, 100f, 1.5f),
+                    rotationSpeed: 300f
                 );
                 break;
 

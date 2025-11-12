@@ -8,6 +8,7 @@ public class MoveTowardsDestinationStrategy : IMoveStrategy
     FlowField.PathTracker _pathTracker;
     BuffValue<float> _moveSpeed;
     float _rotateSpeed;
+    Animator _animator;
 
     public MoveTowardsDestinationStrategy(
         FlowField.PathTracker pathTracker,
@@ -19,6 +20,11 @@ public class MoveTowardsDestinationStrategy : IMoveStrategy
         _unitTransform = unitTransform;
         _moveSpeed = moveSpeed;
         _rotateSpeed = rotateSpeed;
+    }
+
+    public void InjectAnimator(Animator animator) 
+    {
+        _animator = animator;
     }
 
     Transform _unitTransform;
@@ -50,11 +56,18 @@ public class MoveTowardsDestinationStrategy : IMoveStrategy
         if (_unitTransform == null) return;
 
         Vector3 nxtPos = _pathTracker.Track(_unitTransform.position);
+        Vector3 direction = (nxtPos - _unitTransform.position); // 이동 방향 계산
 
-        // 이동 방향 계산
-        Vector3 direction = (nxtPos - _unitTransform.position);
-        if (direction.sqrMagnitude < 0.0001f)
+        bool canMove = direction.sqrMagnitude > 0.0001f;
+        if (canMove == false)
+        {
+            _animator.SetBool("Walk", false);
             return;
+        }
+        else
+        {
+            _animator.SetBool("Walk", true);
+        }
 
         Move(nxtPos);
         Rotate(direction);

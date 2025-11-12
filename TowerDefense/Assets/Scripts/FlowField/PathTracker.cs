@@ -31,11 +31,10 @@ namespace FlowField
         public Vector3 Track(Vector3 worldPos)
         {
             // 1️⃣ 현재 노드의 이동 방향 가져오기 (2D 기반)
-            Vector2 dir2D = _gridComponent.GetNodeDirection(new Vector2(worldPos.x, -worldPos.z));
+            Vector2 dir2D = _gridComponent.GetNodeDirection(worldPos);
 
             // 이동할 방향이 없으면 현재 위치 그대로 반환
-            if (dir2D == Vector2.zero)
-                return worldPos;
+            if (dir2D == Vector2.zero) return worldPos;
 
             // 2️⃣ XZ 평면으로 방향 변환
             Vector3 direction3D = new Vector3(dir2D.x, 0f, dir2D.y).normalized;
@@ -44,10 +43,10 @@ namespace FlowField
             Vector3 nextPos = worldPos + direction3D * _stepSize;
 
             // 4️⃣ Grid 범위 내로 보정 (XZ 평면 기준)
-            //Vector2 clamped2D = _gridComponent.GetClampPos(new Vector2(nextPos.x, -nextPos.z));
+            Vector2 clamped2D = _gridComponent.GetClampedRange(nextPos);
 
             // Y값은 그대로 유지 (지형 높이 등 고려)
-            //Vector3 clamped3D = new Vector3(clamped2D.x, worldPos.y, clamped2D.y);
+            Vector3 clamped3D = new Vector3(clamped2D.x, worldPos.y, clamped2D.y);
 
             return nextPos;
         }

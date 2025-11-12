@@ -8,9 +8,30 @@
         "spawnTime": 1.0,
         "spawnPoint": {
           "$type": "SerializableVector3, Assembly-CSharp",
-          "x": 8.48,
+          "x": 3.53,
           "y": 0.0,
-          "z": -7.1
+          "z": -17.1
+        },
+        "spawnRadius": 3.5,
+        "enemyDetails": {
+          "$type": "System.Collections.Generic.List`1[[SpawnDetail, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "SpawnDetail, Assembly-CSharp",
+              "name": "Imp",
+              "count": 3
+            }
+          ]
+        }
+      },
+      {
+        "$type": "SpawnInfo, Assembly-CSharp",
+        "spawnTime": 1.0,
+        "spawnPoint": {
+          "$type": "SerializableVector3, Assembly-CSharp",
+          "x": 8.24,
+          "y": 0.0,
+          "z": -6.99
         },
         "spawnRadius": 3.5,
         "enemyDetails": {
