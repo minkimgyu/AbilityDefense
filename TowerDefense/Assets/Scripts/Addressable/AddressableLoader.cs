@@ -17,9 +17,11 @@ public class AddressableLoader : MonoBehaviour
         LevelDesignJsonData,
 
         CardIconSprite,
-        SpawnableUIPrefab,
         Sound,
+
+        SpawnableUIPrefab,
         EntityPrefab,
+        ProjectilePrefab,
     }
 
     HashSet<BaseLoader> _assetLoaders;
@@ -65,6 +67,7 @@ public class AddressableLoader : MonoBehaviour
         _assetLoaders.Add(new EntityDataAssetLoader(Label.EntityJsonData, (value, label) => { EntityDataAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new LevelDesignDataAssetLoader(Label.LevelDesignJsonData, (value, label) => { EnemySpawnDataAsset = value; OnSuccess(label); }));
 
+        _assetLoaders.Add(new ProjectilePrefabAssetLoader(Label.ProjectilePrefab, (value, label) => { ProjectilePrefabAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new SpawnableUIPrefabAssetLoader(Label.SpawnableUIPrefab, (value, label) => { SpawnableUIPrefabAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new EntityPrefabAssetLoader(Label.EntityPrefab, (value, label) => { EntityPrefabAssets = value; OnSuccess(label); }));
 

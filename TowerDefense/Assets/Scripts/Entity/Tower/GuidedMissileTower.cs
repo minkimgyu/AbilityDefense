@@ -11,14 +11,17 @@ public class GuidedMissileTower : Tower
 
     public override void Initialize()
     {
-        _attackStrategy.InjectFirePoint(_firePoint1, _firePoint2);
+        List<Transform> firePoints = new List<Transform>() { _firePoint1, _firePoint2 };
+        _attackStrategy.InjectFirePoint(firePoints);
         _moveStrategy.InjectTurretTransform(_turretTransform);
         _detectStrategy.InjectCaptureComponent(_targetCaptureComponent);
     }
 
     public override void OnUpdate()
     {
-        TargetCaptureComponent.Data targetData = _detectStrategy.DetectTarget();
+        bool canDetact = _detectStrategy.TryDetectTarget(out TargetCaptureComponent.Data targetData);
+        if(canDetact == false) return;
+
         _attackStrategy.Attack(targetData);
         _moveStrategy.RotateTo(targetData.CapturedTarget.GetTransform().position);
     }

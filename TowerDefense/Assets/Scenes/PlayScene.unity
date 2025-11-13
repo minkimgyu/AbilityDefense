@@ -23279,7 +23279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 677ca646a294eca46a4f81286dd43388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dataName: 3
+  _dataName: 1
   _savePath: C:/Users/meal/Documents/GitHub/TowerDefense/TowerDefense/Assets/JsonDatas/Entity
 --- !u!114 &888021938
 MonoBehaviour:

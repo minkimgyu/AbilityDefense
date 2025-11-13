@@ -2,19 +2,18 @@ using UnityEngine;
 
 public class TargetCaptureComponent : MonoBehaviour
 {
+    // IDamageable는 다른 컴포넌트에서 구현하기
+
     public struct Data
     {
         ITarget _capturedTarget;
-        IDamageable _capturedDamageable;
 
-        public Data(ITarget capturedTarget, IDamageable capturedDamageable)
+        public Data(ITarget capturedTarget)
         {
             _capturedTarget = capturedTarget;
-            _capturedDamageable = capturedDamageable;
         }
 
         public ITarget CapturedTarget { get => _capturedTarget; }
-        public IDamageable CapturedDamageable { get => _capturedDamageable; }
     }
 
     ITarget.Type _targetType;
@@ -39,14 +38,7 @@ public class TargetCaptureComponent : MonoBehaviour
         bool isTarget = target.IsTarget(_targetType);
         if (isTarget)
         {
-            IDamageable damageable = other.GetComponent<IDamageable>();
-            if(damageable == null)
-            {
-                Debug.LogError("TargetCaptureComponent: The captured target does not implement IDamageable.");
-                return;
-            }
-
-            Data data = new Data(target, damageable);
+            Data data = new Data(target);
             OnCaptureTarget?.Invoke(data);
         }
     }
@@ -57,14 +49,7 @@ public class TargetCaptureComponent : MonoBehaviour
         bool isTarget = target.IsTarget(_targetType);
         if (isTarget)
         {
-            IDamageable damageable = other.GetComponent<IDamageable>();
-            if (damageable == null)
-            {
-                Debug.LogError("TargetCaptureComponent: The captured target does not implement IDamageable.");
-                return;
-            }
-
-            Data data = new Data(target, damageable);
+            Data data = new Data(target);
             OnCaptureTarget?.Invoke(data);
         }
     }

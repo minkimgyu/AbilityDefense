@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class NoDetectStrategy : IDetectStrategy
 {
-    public TargetCaptureComponent.Data DetectTarget()
-    {
-        return default;
-    }
-
-    public List<TargetCaptureComponent.Data> DetectTargets()
-    {
-        return null;
-    }
 
     public void InjectCaptureComponent(TargetCaptureComponent captureComponent)
     {
@@ -24,5 +15,17 @@ public class NoDetectStrategy : IDetectStrategy
 
     public void OnTargetExit(TargetCaptureComponent.Data data)
     {
+    }
+
+    public bool TryDetectTarget(out TargetCaptureComponent.Data data)
+    {
+        data = new TargetCaptureComponent.Data(null);
+        return false;
+    }
+
+    public bool TryDetectTargets(out List<TargetCaptureComponent.Data> datas)
+    {
+        datas = new List<TargetCaptureComponent.Data>();
+        return false;
     }
 }

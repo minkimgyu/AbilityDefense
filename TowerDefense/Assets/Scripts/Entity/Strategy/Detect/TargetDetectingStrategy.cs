@@ -14,20 +14,38 @@ public class TargetDetectingStrategy : IDetectStrategy
         _targetTypes = targetTypes;
     }
 
-    public TargetCaptureComponent.Data DetectTarget()
+    public bool TryDetectTarget(out TargetCaptureComponent.Data data)
     {
         // 파괴된 오브젝트(Fake null) 제거
-        _targetDatas.RemoveAll(data => data.CapturedTarget == null || data.CapturedDamageable == null);
-        if(_targetDatas.Count == 0) return new TargetCaptureComponent.Data(null, null);
+        _targetDatas.RemoveAll(data => data.CapturedTarget == null);
 
-        return _targetDatas[0];
+        if (_targetDatas.Count == 0)
+        {
+            data = new TargetCaptureComponent.Data(null);
+            return false;
+        }
+        else
+        {
+            data = _targetDatas[0];
+            return true;
+        }
     }
 
-    public List<TargetCaptureComponent.Data> DetectTargets() 
+    public bool TryDetectTargets(out List<TargetCaptureComponent.Data> datas) 
     {
         // 파괴된 오브젝트(Fake null) 제거
-        _targetDatas.RemoveAll(data => data.CapturedTarget == null || data.CapturedDamageable == null);
-        return _targetDatas; 
+        _targetDatas.RemoveAll(data => data.CapturedTarget == null);
+
+        if (_targetDatas.Count == 0)
+        {
+            datas = null;
+            return false;
+        }
+        else
+        {
+            datas = _targetDatas;
+            return true;
+        }
     }
 
     public void InjectCaptureComponent(TargetCaptureComponent captureComponent)

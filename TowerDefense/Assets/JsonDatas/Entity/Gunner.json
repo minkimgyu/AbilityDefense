@@ -26,6 +26,12 @@
     ]
   },
   "rotationSpeed": 300.0,
+  "fireSpeed": {
+    "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
+    "min": 0.0,
+    "max": 100.0,
+    "current": 5.0
+  },
   "name": "Gunner",
   "myType": "Ally"
 }

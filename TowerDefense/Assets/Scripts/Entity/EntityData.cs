@@ -97,6 +97,9 @@ public class GunnerData : EntityData, IDataModifier
     [JsonProperty("rotationSpeed")]
     private float _rotationSpeed;
 
+    [JsonProperty("fireSpeed")]
+    private BuffValue<float> _fireSpeed;
+
     public GunnerData(
         Entity.Name name,
         ITarget.Type myType,
@@ -105,6 +108,7 @@ public class GunnerData : EntityData, IDataModifier
         BuffValue<float> attackDamage,
         BuffValue<float> targetingRange,
         BuffValue<float> attackRate,
+        BuffValue<float> fireSpeed,
         float rotationSpeed) : base(name, myType)
     {
         _targetTypes = targetTypes;
@@ -112,6 +116,7 @@ public class GunnerData : EntityData, IDataModifier
         _projectileName = projectileName;
         _targetingRange = targetingRange;
         _attackRate = attackRate;
+        _fireSpeed = fireSpeed;
         _rotationSpeed = rotationSpeed;
     }
 
@@ -125,6 +130,7 @@ public class GunnerData : EntityData, IDataModifier
     [JsonIgnore] public IProjectile.Name ProjectileName => _projectileName;
     [JsonIgnore] public List<ITarget.Type> TargetTypes => _targetTypes;
     [JsonIgnore] public float RotationSpeed => _rotationSpeed;
+    [JsonIgnore] public BuffValue<float> FireSpeed => _fireSpeed;
 }
 
 [Serializable]
@@ -142,6 +148,9 @@ public class BulletTowerData : EntityData, IDataModifier
     [JsonProperty("attackRate")]
     private BuffValue<float> _attackRate;
 
+    [JsonProperty("fireSpeed")]
+    private BuffValue<float> _fireSpeed;
+
     [JsonProperty("targetTypes")]
     private List<ITarget.Type> _targetTypes;
 
@@ -156,13 +165,16 @@ public class BulletTowerData : EntityData, IDataModifier
         BuffValue<float> attackDamage,
         BuffValue<float> targetingRange,
         BuffValue<float> attackRate,
+        BuffValue<float> fireSpeed,
         float rotationSpeed) : base(name, myType)
     {
         _attackDamage = attackDamage;
         _projectileName = projectileName;
         _targetingRange = targetingRange;
         _attackRate = attackRate;
+        _targetTypes = targetTypes;
         _rotationSpeed = rotationSpeed;
+        _fireSpeed = fireSpeed;
     }
 
     public void ModifyAttackDamage(float attack) => _attackDamage.Value += attack;
@@ -174,6 +186,7 @@ public class BulletTowerData : EntityData, IDataModifier
     [JsonIgnore] public BuffValue<float> AttackRate => _attackRate;
     [JsonIgnore] public IProjectile.Name ProjectileName => _projectileName;
     [JsonIgnore] public List<ITarget.Type> TargetTypes => _targetTypes;
+    [JsonIgnore] public BuffValue<float> FireSpeed => _fireSpeed;
     [JsonIgnore] public float RotationSpeed => _rotationSpeed;
 }
 
@@ -198,6 +211,9 @@ public class GuidedMissileTowerData : EntityData, IDataModifier
     [JsonProperty("attackRate")]
     private BuffValue<float> _attackRate;
 
+    [JsonProperty("fireSpeed")]
+    private BuffValue<float> _fireSpeed;
+
     [JsonProperty("rotationSpeed")]
     private float _rotationSpeed;
 
@@ -210,6 +226,7 @@ public class GuidedMissileTowerData : EntityData, IDataModifier
         BuffValue<float> explosionRange,
         BuffValue<float> targetingRange,
         BuffValue<float> attackRate,
+        BuffValue<float> fireSpeed,
         float rotationSpeed) : base(name, myType)
     {
         _targetTypes = targetTypes;
@@ -218,6 +235,7 @@ public class GuidedMissileTowerData : EntityData, IDataModifier
         _targetingRange = targetingRange;
         _explosionRange = explosionRange;
         _attackRate = attackRate;
+        _fireSpeed = fireSpeed;
         _rotationSpeed = rotationSpeed;
     }
 
@@ -232,4 +250,5 @@ public class GuidedMissileTowerData : EntityData, IDataModifier
     [JsonIgnore] public IProjectile.Name ProjectileName => _projectileName;
     [JsonIgnore] public List<ITarget.Type> TargetTypes => _targetTypes;
     [JsonIgnore] public float RotationSpeed => _rotationSpeed;
+    [JsonIgnore] public BuffValue<float> FireSpeed => _fireSpeed;
 }

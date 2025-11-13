@@ -10,8 +10,8 @@ public interface IProjectile
         Missile
     }
 
-    void Initialize(float damage, float speed) { }
+    void Initialize(Missile.Data data) { }
+    void Initialize(Bullet.Data data) { }
+
     void Fire(Vector3 startPos, Quaternion startQuaternion, ITarget target) { }
-    void Fire(Vector3 startPos, Quaternion startQuaternion, ITarget target, IDamageable damageable) { }
-    GameObject GetObject();
 }

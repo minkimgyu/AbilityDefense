@@ -4,32 +4,58 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour, IProjectile
 {
-    float _hitDistance = 0.5f;
-    float _damage;
-    float _speed;
+    public struct Data
+    {
+        float damage;
+        float speed;
 
-    float GetDistanceBetweenTarget(Vector3 targetPos)
+        public Data(
+            float damage,
+           float speed)
+        {
+            this.damage = damage;
+            this.speed = speed;
+        }
+
+        public float Damage => damage;
+        public float Speed => speed;
+    }
+
+    const float _hitDistance = 0.5f;
+    const float _rotateSpeed = 300f;
+    Data _data;
+
+    float GetDistance(Vector3 targetPos)
     {
         return Vector3.Distance(transform.position, targetPos);
     }
 
-    public void Fire(Vector3 startPos, Quaternion startQuaternion, ITarget target, IDamageable damageable)
+    public void Fire(Vector3 startPos, Quaternion startQuaternion, ITarget target)
     {
-        float distance = GetDistanceBetweenTarget(target.GetTransform().position);
+        float distance = GetDistance(target.GetTransform().position);
         if (distance > _hitDistance)
         {
             // 계속 날라감
-            transform.position = Vector3.MoveTowards(transform.position, target.GetTransform().position, _speed);
+            transform.position = Vector3.MoveTowards(transform.position, target.GetTransform().position, _data.Speed);
+
+            // 목표 방향 계산
+            Vector3 direction = (target.GetTransform().position - transform.position).normalized;
+
+            // 목표를 향해 회전 (부드럽게)
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                _rotateSpeed * Time.deltaTime
+            );
         }
         else
         {
-            // 데미지 주기
-            damageable.SetDamage(_damage);
-        }
-    }
+            bool canSuccess = target.GetTransform().gameObject.TryGetComponent<IDamageable>(out IDamageable damageable);
+            if(canSuccess == false) return;
 
-    public GameObject GetObject()
-    {
-        return gameObject;
+            // 데미지 주기
+            damageable.SetDamage(_data.Damage);
+        }
     }
 }

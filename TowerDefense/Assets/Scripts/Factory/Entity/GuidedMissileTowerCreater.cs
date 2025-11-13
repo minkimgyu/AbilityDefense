@@ -26,7 +26,7 @@ public class GuidedMissileTowerCreater : EntityCreater
             new TargetDetectingStrategy(
                 _data.TargetTypes
             ),
-            new FireMissileStrategy(
+            new FireProjectileStrategy(
                 _data.ProjectileName,
                 _data.AttackRate,
                 _projectileFactory
