@@ -32,7 +32,7 @@ public class EntityDataGenerator : BaseDataGenerator<Entity.Name>
                    targetingRange: new BuffValue<float>(0f, 100f, 2f),
                    attackRate: new BuffValue<float>(0f, 100f, 1.2f),
                    rotationSpeed: 300f,
-                   fireSpeed: new BuffValue<float>(0f, 100f, 5f)
+                   projectileSpeed: new BuffValue<float>(0f, 100f, 5f)
                );
 
                 break;
@@ -48,7 +48,7 @@ public class EntityDataGenerator : BaseDataGenerator<Entity.Name>
                     targetingRange: new BuffValue<float>(0f, 100f, 4f),
                     attackRate: new BuffValue<float>(0f, 100f, 1.5f),
                     rotationSpeed: 300f,
-                    fireSpeed: new BuffValue<float>(0f, 100f, 5f)
+                    projectileSpeed: new BuffValue<float>(0f, 100f, 5f)
                 );
 
                 break;
@@ -63,9 +63,9 @@ public class EntityDataGenerator : BaseDataGenerator<Entity.Name>
                     explosionDamage: new BuffValue<float>(0f, 100f, 18f),
                     explosionRange: new BuffValue<float>(0f, 100f, 2f),
                     targetingRange: new BuffValue<float>(0f, 100f, 4f),
-                    attackRate: new BuffValue<float>(0f, 100f, 1f),
+                    attackRate: new BuffValue<float>(0f, 100f, 5f),
                     rotationSpeed: 300f,
-                    fireSpeed: new BuffValue<float>(0f, 100f, 5f)
+                    projectileSpeed: new BuffValue<float>(0f, 100f, 5f)
                 );
 
                 break;

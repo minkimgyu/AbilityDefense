@@ -19,7 +19,7 @@
     "max": 100.0,
     "current": 1.5
   },
-  "fireSpeed": {
+  "projectileSpeed": {
     "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
     "min": 0.0,
     "max": 100.0,

@@ -22,15 +22,11 @@ public class WalkUnitCreater : EntityCreater
         GameObject entityGO = Object.Instantiate(_entityPrefab);
         Entity entity = entityGO.GetComponent<Entity>();
 
-        entity.SetState(Entity.EntityState.Idle);
-        entity.SetState(Entity.PlacementState.Planted);
-        entity.SetState(Entity.LifeState.Alive);
-
         entity.InjectStrategy(
             new NoDetectStrategy(),
             new NoAttackStrategy(),
             new MoveTowardsDestinationStrategy(
-                _pathTracker, 
+                _pathTracker,
                 entityGO.transform,
                 _data.MoveSpeed,
                 _data.RotationSpeed
@@ -38,6 +34,14 @@ public class WalkUnitCreater : EntityCreater
         );
 
         entity.Initialize();
+
+        entity.SetState(Entity.EntityState.Idle);
+        entity.SetState(Entity.PlacementState.Planted);
+        entity.SetState(Entity.LifeState.Alive);
+
+        IHealth health = entity.GetComponent<IHealth>();
+        health.SetHP(_data.MaxHp);
+
         return entity;
     }
 }

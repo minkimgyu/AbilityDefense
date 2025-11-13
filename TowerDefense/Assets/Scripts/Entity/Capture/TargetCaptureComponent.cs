@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetCaptureComponent : MonoBehaviour
@@ -16,7 +17,7 @@ public class TargetCaptureComponent : MonoBehaviour
         public ITarget CapturedTarget { get => _capturedTarget; }
     }
 
-    ITarget.Type _targetType;
+    List<ITarget.Type> _targetTypes;
 
     public event System.Action<Data> OnCaptureTarget;
     public event System.Action<Data> OnRemoveTarget;
@@ -27,15 +28,15 @@ public class TargetCaptureComponent : MonoBehaviour
         this.OnRemoveTarget = OnRemoveTarget;
     }
 
-    public void Initialize(ITarget.Type targetType)
+    public void Initialize(List<ITarget.Type> targetTypes)
     {
-        _targetType = targetType;
+        _targetTypes = targetTypes;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         ITarget target = other.GetComponent<ITarget>();
-        bool isTarget = target.IsTarget(_targetType);
+        bool isTarget = target.IsTarget(_targetTypes);
         if (isTarget)
         {
             Data data = new Data(target);
@@ -46,7 +47,7 @@ public class TargetCaptureComponent : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         ITarget target = other.GetComponent<ITarget>();
-        bool isTarget = target.IsTarget(_targetType);
+        bool isTarget = target.IsTarget(_targetTypes);
         if (isTarget)
         {
             Data data = new Data(target);

@@ -58,6 +58,8 @@ namespace Player
                     Vector2Int resultIdx;
                     Vector3 resultPos;
 
+                    Debug.Log($"PickState: Searching empty area from {idx} excluding");
+
                     if (_searchAreaComponent.FindEmptyArea(idx, _storedIdx, _cardData.AreaData, out resultIdx, out resultPos))
                     {
                         // TODO

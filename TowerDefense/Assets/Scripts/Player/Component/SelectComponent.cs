@@ -27,7 +27,7 @@ public class SelectComponent
         }
 
         Vector3 hitPoint = ray.GetPoint(enter); // XZ 평면 위의 마우스 좌표
-        idx = _gridComponent.GetNodeIndex(new Vector2(hitPoint.x, hitPoint.z));
+        idx = _gridComponent.GetNodeIndex(hitPoint);
 
         return true; 
     }

@@ -10,8 +10,8 @@ public interface IProjectile
         Missile
     }
 
-    void Initialize(Missile.Data data) { }
-    void Initialize(Bullet.Data data) { }
+    void SetData(Missile.Data data) { }
+    void SetData(Bullet.Data data) { }
 
     void Fire(Vector3 startPos, Quaternion startQuaternion, ITarget target) { }
 }

@@ -17,7 +17,7 @@ public class TargetDetectingStrategy : IDetectStrategy
     public bool TryDetectTarget(out TargetCaptureComponent.Data data)
     {
         // 파괴된 오브젝트(Fake null) 제거
-        _targetDatas.RemoveAll(data => data.CapturedTarget == null);
+        _targetDatas.RemoveAll(data => (data.CapturedTarget as Object) == null);
 
         if (_targetDatas.Count == 0)
         {
@@ -34,7 +34,7 @@ public class TargetDetectingStrategy : IDetectStrategy
     public bool TryDetectTargets(out List<TargetCaptureComponent.Data> datas) 
     {
         // 파괴된 오브젝트(Fake null) 제거
-        _targetDatas.RemoveAll(data => data.CapturedTarget == null);
+        _targetDatas.RemoveAll(data => (data.CapturedTarget as Object) == null);
 
         if (_targetDatas.Count == 0)
         {
@@ -51,6 +51,7 @@ public class TargetDetectingStrategy : IDetectStrategy
     public void InjectCaptureComponent(TargetCaptureComponent captureComponent)
     {
         _targetCaptureComponent = captureComponent;
+        _targetCaptureComponent.Initialize(_targetTypes);
         _targetCaptureComponent.AddCaptureEvent(OnTargetEnter, OnTargetExit);
     }
 

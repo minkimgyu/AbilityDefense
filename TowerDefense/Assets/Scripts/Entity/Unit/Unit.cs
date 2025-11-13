@@ -4,22 +4,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Unit : Entity, IDamageable, ITarget
+public abstract class Unit : Entity, IHealth, ITarget
 {
     ITarget.Type _targetType;
-    float _hp;
+    BuffValue<float> _hp;
+
+    public void SetHP(BuffValue<float> hp)
+    {
+        _hp = hp;
+    }
 
     public void SetDamage(float damage)
     {
-        _hp -= damage;
-        if (_hp <= 0) Destroy(gameObject);
+        _hp.Value -= damage;
+        if (_hp.Value <= 0)
+        {
+            SetState(LifeState.Dead);
+            Destroy(gameObject);
+        }
     }
 
-    protected PathTracker _pathTracker;
-
-    public override void InjectPathTracker(PathTracker pathTracker) 
+    public void SetHeal(float healAmount)
     {
-        _pathTracker = pathTracker;
+        _hp.Value += healAmount;
+        if(_hp.Value > _hp.Max) _hp.Value = _hp.Max;
     }
 
     public virtual void SetState(ITarget.Type type)
@@ -29,6 +37,8 @@ public abstract class Unit : Entity, IDamageable, ITarget
 
     public Transform GetTransform()
     {
+        if (_lifeState == LifeState.Dead) return null;
+
         return transform;
     }
 

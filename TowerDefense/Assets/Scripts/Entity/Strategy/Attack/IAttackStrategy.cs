@@ -6,7 +6,7 @@ public interface IAttackStrategy
 {
     void InjectFirePoint(List<Transform> firePoints) { }
 
-    void Attack(List<TargetCaptureComponent.Data> datas) { }
-    void Attack(TargetCaptureComponent.Data datas) { }
+    void Attack(List<TargetCaptureComponent.Data> targetDatas) { }
+    void Attack(TargetCaptureComponent.Data targetData) { }
     void OnUpdate() { }
 }

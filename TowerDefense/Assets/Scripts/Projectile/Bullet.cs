@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour, IProjectile
         }
         else
         {
-            bool canSuccess = target.GetTransform().gameObject.TryGetComponent<IDamageable>(out IDamageable damageable);
+            bool canSuccess = target.GetTransform().gameObject.TryGetComponent<IHealth>(out IHealth damageable);
             if(canSuccess == false) return;
 
             // 데미지 주기

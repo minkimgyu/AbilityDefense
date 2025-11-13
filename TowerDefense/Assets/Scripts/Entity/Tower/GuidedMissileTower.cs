@@ -23,6 +23,10 @@ public class GuidedMissileTower : Tower
         if(canDetact == false) return;
 
         _attackStrategy.Attack(targetData);
-        _moveStrategy.RotateTo(targetData.CapturedTarget.GetTransform().position);
+
+       Transform targetTransform = targetData.CapturedTarget.GetTransform();
+        if(targetTransform == null) return;
+
+        _moveStrategy.RotateTo(targetTransform.position);
     }
 }

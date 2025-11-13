@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EntityFactory
 {
-    Dictionary<Entity.Name, EntityCreater> _towerCreater;
+    Dictionary<Entity.Name, EntityCreater> _entityCreater;
 
     public EntityFactory(
         Dictionary<Entity.Name, GameObject> entityPrefab, 
@@ -12,7 +12,7 @@ public class EntityFactory
         ProjectileFactory projectileFactory,
         FlowField.PathTracker pathTracker)
     {
-        _towerCreater = new Dictionary<Entity.Name, EntityCreater>()
+        _entityCreater = new Dictionary<Entity.Name, EntityCreater>()
         {
             {
                 Entity.Name.GuidedMissileTower, new GuidedMissileTowerCreater(
@@ -33,7 +33,7 @@ public class EntityFactory
 
     public Entity Create(Entity.Name name)
     {
-        Entity entity = _towerCreater[name].Create(name);
+        Entity entity = _entityCreater[name].Create(name);
         entity.Initialize();
         return entity;
     }

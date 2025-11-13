@@ -2,53 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireProjectileStrategy : IAttackStrategy
+public abstract class FireProjectileStrategy : IAttackStrategy
 {
     Timer _timer;
 
     IProjectile.Name _name;
     ProjectileFactory _projectileFactory;
 
-    BuffValue<float> _shootDelay;
-    List<Transform> _firePoints;
+    protected List<Transform> _firePoints;
+    BuffValue<float> _attackRate;
 
     public FireProjectileStrategy(
         IProjectile.Name name,
-        BuffValue<float> shootDelay,
+        BuffValue<float> attackRate,
         ProjectileFactory projectileFactory)
     {
         _name = name;
         _projectileFactory = projectileFactory;
-        _shootDelay = shootDelay;
+        _attackRate = attackRate;
         _timer = new Timer();
-        _firePoints = new List<Transform>();
     }
-
 
     public void InjectFirePoint(List<Transform> firePoints)
     {
         _firePoints = firePoints;
     }
 
-    void FireToTarget(int idx, TargetCaptureComponent.Data targetData)
+    public virtual void Attack(TargetCaptureComponent.Data targetData) { }
+
+    protected IProjectile GetProjectile()
     {
-        IProjectile projectile1 = _projectileFactory.Create(_name);
-        projectile1.Fire(_firePoints[idx].position, _firePoints[idx].rotation, targetData.CapturedTarget);
+        return _projectileFactory.Create(_name);
     }
 
-    public void Attack(TargetCaptureComponent.Data targetData)
+    protected void ResetTimer()
     {
-        if (_timer.CurrentState == Timer.State.Running) return; // 타이머가 동작하지 않으면 return
-        if(targetData.CapturedTarget == null) return;
-        // 이미 파괴된 타겟이면 발사하지 않음
-
-        for (int i = 0; i < _firePoints.Count; i++)
-        {
-            FireToTarget(i, targetData);
-        }
-
         _timer.Reset();
-        _timer.Start(_shootDelay.Value);
+        _timer.Start(_attackRate.Value);
+    }
+
+    protected bool CanFire()
+    {
+        if (_timer.CurrentState == Timer.State.Running) return false; // 타이머가 동작하지 않으면 return
+        return true;
     }
 
     public void OnUpdate()

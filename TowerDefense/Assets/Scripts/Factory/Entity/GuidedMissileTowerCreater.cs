@@ -18,16 +18,16 @@ public class GuidedMissileTowerCreater : EntityCreater
         GameObject entityGO = Object.Instantiate(_entityPrefab);
         Entity entity = entityGO.GetComponent<Entity>();
 
-        entity.SetState(Entity.EntityState.Idle);
-        entity.SetState(Entity.PlacementState.Planted);
-        entity.SetState(Entity.LifeState.Alive);
-
         entity.InjectStrategy(
             new TargetDetectingStrategy(
                 _data.TargetTypes
             ),
-            new FireProjectileStrategy(
+            new FireMissileStrategy(
                 _data.ProjectileName,
+                _data.TargetTypes,
+                _data.ExplosionDamage,
+                _data.ExplosionRange,
+                _data.ProjectileSpeed,
                 _data.AttackRate,
                 _projectileFactory
             ),
@@ -38,6 +38,13 @@ public class GuidedMissileTowerCreater : EntityCreater
         );
 
         entity.Initialize();
+
+        entity.SetState(Entity.EntityState.Idle);
+        entity.SetState(Entity.PlacementState.Planted);
+        entity.SetState(Entity.LifeState.Alive);
+
+        
+
         return entity;
     }
 }

@@ -5,7 +5,7 @@
     "$values": [
       {
         "$type": "SpawnInfo, Assembly-CSharp",
-        "spawnTime": 1.0,
+        "spawnTime": 5.0,
         "spawnPoint": {
           "$type": "SerializableVector3, Assembly-CSharp",
           "x": 3.53,
@@ -26,7 +26,7 @@
       },
       {
         "$type": "SpawnInfo, Assembly-CSharp",
-        "spawnTime": 1.0,
+        "spawnTime": 5.0,
         "spawnPoint": {
           "$type": "SerializableVector3, Assembly-CSharp",
           "x": 8.24,

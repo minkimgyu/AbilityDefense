@@ -56,8 +56,6 @@ public abstract class Entity : MonoBehaviour
         _moveStrategy = moveStrategy;
     }
 
-    public virtual void InjectPathTracker(PathTracker pathTracker) { }
-
     public virtual void SetState(LifeState state)
     {
         _lifeState = state;
@@ -74,6 +72,7 @@ public abstract class Entity : MonoBehaviour
     }
 
     public abstract void Initialize();
+
     public abstract void OnUpdate();
 
     public void SetPosition(Vector3 position)
