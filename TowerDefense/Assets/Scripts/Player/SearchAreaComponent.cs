@@ -89,6 +89,9 @@ public class SearchAreaComponent
         Node startNode = _gridComponent.GetNode(idx);
         if (startNode == null) return false; // 실패 시 기본값 반환
 
+        //Debug.Log($"FindEmptyArea: Found at Start Position {startNode.WorldPos}");
+
+
         // 현 자리에 빈 공간이 있는지 확인
         bool isEmpty = _gridComponent.IsEmptyArea(idx, areaData);
         if (isEmpty == true) // 있다면 시작 위치 반환
