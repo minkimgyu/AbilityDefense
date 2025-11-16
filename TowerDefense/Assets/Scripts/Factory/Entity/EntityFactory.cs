@@ -10,7 +10,7 @@ public class EntityFactory
         Dictionary<Entity.Name, GameObject> entityPrefab, 
         Dictionary<Entity.Name, EntityData> entityData,
         ProjectileFactory projectileFactory,
-        FlowField.PathTracker pathTracker)
+        IPathTracker pathTracker)
     {
         _entityCreater = new Dictionary<Entity.Name, EntityCreater>()
         {

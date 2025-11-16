@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class MoveTowardsDestinationStrategy : IMoveStrategy
 {
-    FlowField.PathTracker _pathTracker;
+    IPathTracker _pathTracker;
     BuffValue<float> _moveSpeed;
     float _rotateSpeed;
     Animator _animator;
 
     public MoveTowardsDestinationStrategy(
-        FlowField.PathTracker pathTracker,
+        IPathTracker pathTracker,
         Transform unitTransform,
         BuffValue<float> moveSpeed,
         float rotateSpeed)

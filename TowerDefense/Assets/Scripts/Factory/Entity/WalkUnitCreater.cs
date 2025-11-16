@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class WalkUnitCreater : EntityCreater
 {
-    FlowField.PathTracker _pathTracker;
+    IPathTracker _pathTracker;
     EntityData _data;
 
     public WalkUnitCreater(
         GameObject entityPrefab,
-        PathTracker pathTracker,
+        IPathTracker pathTracker,
         EntityData data) : base(entityPrefab)
     {
         _pathTracker = pathTracker;

@@ -7,7 +7,7 @@ namespace FlowField
     /// GridComponent의 노드 정보를 기반으로
     /// 3D 월드 좌표에서 이동 방향을 추적하는 클래스입니다.
     /// </summary>
-    public class PathTracker
+    public class PathTracker : IPathTracker
     {
         private GridComponent _gridComponent;
         private float _stepSize;
