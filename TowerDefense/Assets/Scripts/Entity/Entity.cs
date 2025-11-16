@@ -10,7 +10,10 @@ public abstract class Entity : MonoBehaviour
         Gunner,
         BulletTower,
         GuidedMissileTower,
-        Imp
+
+        Imp,
+        Knight,
+        Nosedman,
         //GridMissileTower,
         //ThrowTower,
         //ProvocationWarrior,

@@ -8,9 +8,9 @@
         "spawnTime": 5.0,
         "spawnPoint": {
           "$type": "SerializableVector3, Assembly-CSharp",
-          "x": 3.53,
+          "x": 3.77,
           "y": 0.0,
-          "z": -17.1
+          "z": -4.97
         },
         "spawnRadius": 3.5,
         "enemyDetails": {
@@ -26,12 +26,54 @@
       },
       {
         "$type": "SpawnInfo, Assembly-CSharp",
-        "spawnTime": 5.0,
+        "spawnTime": 10.0,
         "spawnPoint": {
           "$type": "SerializableVector3, Assembly-CSharp",
-          "x": 8.24,
+          "x": 12.54,
           "y": 0.0,
-          "z": -6.99
+          "z": -5.15
+        },
+        "spawnRadius": 3.5,
+        "enemyDetails": {
+          "$type": "System.Collections.Generic.List`1[[SpawnDetail, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "SpawnDetail, Assembly-CSharp",
+              "name": "Knight",
+              "count": 3
+            }
+          ]
+        }
+      },
+      {
+        "$type": "SpawnInfo, Assembly-CSharp",
+        "spawnTime": 15.0,
+        "spawnPoint": {
+          "$type": "SerializableVector3, Assembly-CSharp",
+          "x": 3.77,
+          "y": 0.0,
+          "z": -4.97
+        },
+        "spawnRadius": 3.5,
+        "enemyDetails": {
+          "$type": "System.Collections.Generic.List`1[[SpawnDetail, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "SpawnDetail, Assembly-CSharp",
+              "name": "Nosedman",
+              "count": 3
+            }
+          ]
+        }
+      },
+      {
+        "$type": "SpawnInfo, Assembly-CSharp",
+        "spawnTime": 20.0,
+        "spawnPoint": {
+          "$type": "SerializableVector3, Assembly-CSharp",
+          "x": 12.54,
+          "y": 0.0,
+          "z": -5.15
         },
         "spawnRadius": 3.5,
         "enemyDetails": {
@@ -40,7 +82,49 @@
             {
               "$type": "SpawnDetail, Assembly-CSharp",
               "name": "Imp",
-              "count": 3
+              "count": 5
+            }
+          ]
+        }
+      },
+      {
+        "$type": "SpawnInfo, Assembly-CSharp",
+        "spawnTime": 25.0,
+        "spawnPoint": {
+          "$type": "SerializableVector3, Assembly-CSharp",
+          "x": 12.54,
+          "y": 0.0,
+          "z": -5.15
+        },
+        "spawnRadius": 3.5,
+        "enemyDetails": {
+          "$type": "System.Collections.Generic.List`1[[SpawnDetail, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "SpawnDetail, Assembly-CSharp",
+              "name": "Knight",
+              "count": 5
+            }
+          ]
+        }
+      },
+      {
+        "$type": "SpawnInfo, Assembly-CSharp",
+        "spawnTime": 30.0,
+        "spawnPoint": {
+          "$type": "SerializableVector3, Assembly-CSharp",
+          "x": 12.54,
+          "y": 0.0,
+          "z": -5.15
+        },
+        "spawnRadius": 3.5,
+        "enemyDetails": {
+          "$type": "System.Collections.Generic.List`1[[SpawnDetail, Assembly-CSharp]], mscorlib",
+          "$values": [
+            {
+              "$type": "SpawnDetail, Assembly-CSharp",
+              "name": "Nosedman",
+              "count": 5
             }
           ]
         }

@@ -22,6 +22,7 @@ public class AddressableLoader : MonoBehaviour
         SpawnableUIPrefab,
         EntityPrefab,
         ProjectilePrefab,
+        EffectPrefab
     }
 
     HashSet<BaseLoader> _assetLoaders;
@@ -67,6 +68,7 @@ public class AddressableLoader : MonoBehaviour
         _assetLoaders.Add(new EntityDataAssetLoader(Label.EntityJsonData, (value, label) => { EntityDataAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new LevelDesignDataAssetLoader(Label.LevelDesignJsonData, (value, label) => { EnemySpawnDataAsset = value; OnSuccess(label); }));
 
+        _assetLoaders.Add(new EffectPrefabAssetLoader(Label.EffectPrefab, (value, label) => { EffectAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new ProjectilePrefabAssetLoader(Label.ProjectilePrefab, (value, label) => { ProjectilePrefabAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new SpawnableUIPrefabAssetLoader(Label.SpawnableUIPrefab, (value, label) => { SpawnableUIPrefabAssets = value; OnSuccess(label); }));
         _assetLoaders.Add(new EntityPrefabAssetLoader(Label.EntityPrefab, (value, label) => { EntityPrefabAssets = value; OnSuccess(label); }));

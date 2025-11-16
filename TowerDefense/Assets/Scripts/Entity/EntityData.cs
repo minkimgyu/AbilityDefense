@@ -1,10 +1,10 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityData
+public abstract class EntityData
 {
     [JsonProperty("name")]
     protected Entity.Name _name;
@@ -15,34 +15,17 @@ public class EntityData
     [JsonIgnore] public Entity.Name Name { get => _name; set => _name = value; }
     [JsonIgnore] public ITarget.Type MyType { get => _myType; set => _myType = value; }
 
+    // ✔ Newtonsoft.Json이 필요한 기본 생성자 (반드시 있어야 함)
+    [JsonConstructor]
     public EntityData(Entity.Name name, ITarget.Type myType)
     {
         Name = name;
         MyType = myType;
     }
+
+    // 각 Data에서 반드시 override하여 Deep Copy를 구현해야 함
+    public abstract EntityData Clone();
 }
-
-//public class UnitData : EntityData
-//{
-//    BuffValue<float> _maxHp;
-//    BuffValue<float> _moveSpeed;
-
-//    public UnitData(Entity.Name name, BuffValue<float> maxHp, BuffValue<float> moveSpeed) : base(name)
-//    {
-//        _maxHp = maxHp;
-//        _moveSpeed = moveSpeed;
-//    }
-
-//    public BuffValue<float> MaxHp { get => _maxHp; }
-//    public BuffValue<float> MoveSpeed { get => _moveSpeed; }
-//}
-
-//public class TowerData : EntityData
-//{
-//    public TowerData(Entity.Name name) : base(name)
-//    {
-//    }
-//}
 
 [Serializable]
 public class WalkUnitData : EntityData, IDataModifier
@@ -56,6 +39,8 @@ public class WalkUnitData : EntityData, IDataModifier
     [JsonProperty("rotationSpeed")]
     private float _rotationSpeed;
 
+    // ✔ Newtonsoft.Json이 필요한 기본 생성자 (반드시 있어야 함)
+    [JsonConstructor]
     public WalkUnitData(
         Entity.Name name,
         ITarget.Type myType,
@@ -66,6 +51,18 @@ public class WalkUnitData : EntityData, IDataModifier
         _maxHp = maxHp;
         _moveSpeed = moveSpeed;
         _rotationSpeed = rotationSpeed;
+    }
+
+    public WalkUnitData(WalkUnitData other) : base(other.Name, other.MyType)
+    {
+        _maxHp = new BuffValue<float>(other._maxHp);
+        _moveSpeed = new BuffValue<float>(other._moveSpeed);
+        _rotationSpeed = other._rotationSpeed;
+    }
+
+    public override EntityData Clone()
+    {
+        return new WalkUnitData(this);
     }
 
     public void ModifyMoveSpeed(float speed) { _moveSpeed.Value += speed; }
@@ -100,6 +97,8 @@ public class GunnerData : EntityData, IDataModifier
     [JsonProperty("projectileSpeed")]
     private BuffValue<float> _projectileSpeed;
 
+    // ✔ Newtonsoft.Json이 필요한 기본 생성자 (반드시 있어야 함)
+    [JsonConstructor]
     public GunnerData(
         Entity.Name name,
         ITarget.Type myType,
@@ -118,6 +117,24 @@ public class GunnerData : EntityData, IDataModifier
         _attackRate = attackRate;
         _projectileSpeed = projectileSpeed;
         _rotationSpeed = rotationSpeed;
+    }
+
+    public GunnerData(GunnerData other) : base(other.Name, other.MyType)
+    {
+        _projectileName = other._projectileName;
+        _targetTypes = new List<ITarget.Type>(other._targetTypes);
+
+        _attackDamage = new BuffValue<float>(other._attackDamage);
+        _targetingRange = new BuffValue<float>(other._targetingRange);
+        _attackRate = new BuffValue<float>(other._attackRate);
+        _projectileSpeed = new BuffValue<float>(other._projectileSpeed);
+
+        _rotationSpeed = other._rotationSpeed;
+    }
+
+    public override EntityData Clone()
+    {
+        return new GunnerData(this);
     }
 
     public void ModifyAttackDamage(float attack) => _attackDamage.Value += attack;
@@ -157,6 +174,8 @@ public class BulletTowerData : EntityData, IDataModifier
     [JsonProperty("rotationSpeed")]
     private float _rotationSpeed;
 
+    // ✔ Newtonsoft.Json이 필요한 기본 생성자 (반드시 있어야 함)
+    [JsonConstructor]
     public BulletTowerData(
         Entity.Name name,
         ITarget.Type myType,
@@ -177,6 +196,24 @@ public class BulletTowerData : EntityData, IDataModifier
         _projectileSpeed = projectileSpeed;
     }
 
+    public BulletTowerData(BulletTowerData other) : base(other.Name, other.MyType)
+    {
+        _projectileName = other._projectileName;
+        _targetTypes = new List<ITarget.Type>(other._targetTypes);
+
+        _attackDamage = new BuffValue<float>(other._attackDamage);
+        _targetingRange = new BuffValue<float>(other._targetingRange);
+        _attackRate = new BuffValue<float>(other._attackRate);
+        _projectileSpeed = new BuffValue<float>(other._projectileSpeed);
+
+        _rotationSpeed = other._rotationSpeed;
+    }
+
+    public override EntityData Clone()
+    {
+        return new BulletTowerData(this);
+    }
+
     public void ModifyAttackDamage(float attack) => _attackDamage.Value += attack;
     public void ModifyAttackRate(float rate) => _attackRate.Value += rate;
     public void ModifyTargetingRange(float range) => _targetingRange.Value += range;
@@ -186,7 +223,7 @@ public class BulletTowerData : EntityData, IDataModifier
     [JsonIgnore] public BuffValue<float> AttackRate => _attackRate;
     [JsonIgnore] public IProjectile.Name ProjectileName => _projectileName;
     [JsonIgnore] public List<ITarget.Type> TargetTypes => _targetTypes;
-    [JsonIgnore] public BuffValue<float> FireSpeed => _projectileSpeed;
+    [JsonIgnore] public BuffValue<float> ProjectileSpeed => _projectileSpeed;
     [JsonIgnore] public float RotationSpeed => _rotationSpeed;
 }
 
@@ -217,6 +254,8 @@ public class GuidedMissileTowerData : EntityData, IDataModifier
     [JsonProperty("rotationSpeed")]
     private float _rotationSpeed;
 
+    // ✔ Newtonsoft.Json이 필요한 기본 생성자 (반드시 있어야 함)
+    [JsonConstructor]
     public GuidedMissileTowerData(
         Entity.Name name,
         ITarget.Type myType,
@@ -237,6 +276,25 @@ public class GuidedMissileTowerData : EntityData, IDataModifier
         _attackRate = attackRate;
         _projectileSpeed = projectileSpeed;
         _rotationSpeed = rotationSpeed;
+    }
+
+    public GuidedMissileTowerData(GuidedMissileTowerData other) : base(other.Name, other.MyType)
+    {
+        _projectileName = other._projectileName;
+        _targetTypes = new List<ITarget.Type>(other._targetTypes);
+
+        _explosionDamage = new BuffValue<float>(other._explosionDamage);
+        _explosionRange = new BuffValue<float>(other._explosionRange);
+        _targetingRange = new BuffValue<float>(other._targetingRange);
+        _attackRate = new BuffValue<float>(other._attackRate);
+        _projectileSpeed = new BuffValue<float>(other._projectileSpeed);
+
+        _rotationSpeed = other._rotationSpeed;
+    }
+
+    public override EntityData Clone()
+    {
+        return new GuidedMissileTowerData(this);
     }
 
     public void ModifyAttackDamage(float attack) => _explosionDamage.Value += attack;

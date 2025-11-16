@@ -1,0 +1,18 @@
+{
+  "$type": "WalkUnitData, Assembly-CSharp",
+  "maxHp": {
+    "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
+    "min": 0.0,
+    "max": 100.0,
+    "current": 30.0
+  },
+  "moveSpeed": {
+    "$type": "BuffValue`1[[System.Single, mscorlib]], Assembly-CSharp",
+    "min": 0.0,
+    "max": 100.0,
+    "current": 1.5
+  },
+  "rotationSpeed": 300.0,
+  "name": "Nosedman",
+  "myType": "Enemy"
+}

@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class MissileCreater : ProjectileCreater
 {
-    public MissileCreater(GameObject projectilePrefab) : base(projectilePrefab)
+    EffectFactory _effectFactory;
+    public MissileCreater(GameObject projectilePrefab, EffectFactory effectFactory) : base(projectilePrefab)
     {
+        _effectFactory = effectFactory;
     }
 
     public override IProjectile Create(IProjectile.Name name)
     {
         GameObject projectileGO = Object.Instantiate(_projectilePrefab);
         IProjectile projectile = projectileGO.GetComponent<IProjectile>();
+        projectile.InjectEffectFactory(_effectFactory);
         return projectile;
     }
 }

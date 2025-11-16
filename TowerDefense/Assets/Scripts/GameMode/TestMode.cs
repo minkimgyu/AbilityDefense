@@ -25,8 +25,13 @@ public class TestMode : BaseMode
             addressableLoader.CardIconSprites
         );
 
+        EffectFactory effectFactory = new EffectFactory(
+            addressableLoader.EffectAssets
+        );
+
         ProjectileFactory projectileFactory = new ProjectileFactory(
-            addressableLoader.ProjectilePrefabAssets
+            addressableLoader.ProjectilePrefabAssets,
+            effectFactory
         );
 
         _gridComponent.Initialize();

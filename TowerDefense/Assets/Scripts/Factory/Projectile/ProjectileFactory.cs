@@ -8,15 +8,15 @@ public class ProjectileFactory
 {
     Dictionary<IProjectile.Name, ProjectileCreater> _projectileCreater;
 
-    public ProjectileFactory(Dictionary<IProjectile.Name, GameObject> projectilePrefab)
+    public ProjectileFactory(Dictionary<IProjectile.Name, GameObject> projectilePrefab, EffectFactory effectFactory)
     {
         _projectileCreater = new Dictionary<IProjectile.Name, ProjectileCreater>()
         {
             {
-                IProjectile.Name.Bullet, new BulletCreater(projectilePrefab[IProjectile.Name.Bullet])
+                IProjectile.Name.Bullet, new BulletCreater(projectilePrefab[IProjectile.Name.Bullet], effectFactory)
             },
             {
-                IProjectile.Name.Missile, new MissileCreater(projectilePrefab[IProjectile.Name.Missile])
+                IProjectile.Name.Missile, new MissileCreater(projectilePrefab[IProjectile.Name.Missile], effectFactory)
             },
         };
     }

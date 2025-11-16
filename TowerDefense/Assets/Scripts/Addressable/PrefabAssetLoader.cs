@@ -13,6 +13,14 @@ public class SpawnableUIPrefabAssetLoader : MultiplePrafabAssetLoader<ISpawnable
     }
 }
 
+public class EffectPrefabAssetLoader : MultiplePrafabAssetLoader<IEffect.Name>
+{
+    public EffectPrefabAssetLoader(AddressableLoader.Label label, Action<Dictionary<IEffect.Name, GameObject>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)
+    {
+    }
+}
+
+
 public class ProjectilePrefabAssetLoader : MultiplePrafabAssetLoader<IProjectile.Name>
 {
     public ProjectilePrefabAssetLoader(AddressableLoader.Label label, Action<Dictionary<IProjectile.Name, GameObject>, AddressableLoader.Label> OnComplete) : base(label, OnComplete)

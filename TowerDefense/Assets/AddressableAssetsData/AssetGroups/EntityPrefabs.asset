@@ -23,20 +23,32 @@ MonoBehaviour:
     m_SerializedLabels:
     - EntityPrefab
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 45a6c1346c0a29a41aa7455fd08ba5b3
-    m_Address: BulletTower
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - EntityPrefab
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4ad43adc782b26a4eb4ec0d439d5211d
     m_Address: Imp
     m_ReadOnly: 0
     m_SerializedLabels:
     - EntityPrefab
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54696ba3971f7544e95bddb255ccae71
+    m_Address: Nosedman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityPrefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f57ef8ed810e5f42850dbf392fe77c0
+    m_Address: BulletTower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityPrefab
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b04d596e5288c5241893e421488cc362
     m_Address: GuidedMissileTower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityPrefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4ee0dc555b8c8b45a41caf53baea729
+    m_Address: Knight
     m_ReadOnly: 0
     m_SerializedLabels:
     - EntityPrefab

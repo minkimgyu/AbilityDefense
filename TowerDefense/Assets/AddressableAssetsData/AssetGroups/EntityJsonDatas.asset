@@ -29,6 +29,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - EntityJsonData
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb47e28e130c5934b9cc1eb82fdf4f40
+    m_Address: Knight
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityJsonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e04c2544abcb39043a185bcf0c090280
+    m_Address: Nosedman
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EntityJsonData
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: edb91fb302b91ee4b8b338e6359e66a1
     m_Address: GuidedMissileTower
     m_ReadOnly: 0

@@ -8,7 +8,7 @@ public class EntityFactory
 
     public EntityFactory(
         Dictionary<Entity.Name, GameObject> entityPrefab, 
-        Dictionary<Entity.Name, EntityData> towerData,
+        Dictionary<Entity.Name, EntityData> entityData,
         ProjectileFactory projectileFactory,
         FlowField.PathTracker pathTracker)
     {
@@ -17,7 +17,14 @@ public class EntityFactory
             {
                 Entity.Name.GuidedMissileTower, new GuidedMissileTowerCreater(
                     entityPrefab[Entity.Name.GuidedMissileTower],
-                    (GuidedMissileTowerData)towerData[Entity.Name.GuidedMissileTower],
+                    entityData[Entity.Name.GuidedMissileTower],
+                    projectileFactory
+                )
+            },
+             {
+                Entity.Name.BulletTower, new BulletTowerCreater(
+                    entityPrefab[Entity.Name.BulletTower],
+                    entityData[Entity.Name.BulletTower],
                     projectileFactory
                 )
             },
@@ -25,7 +32,21 @@ public class EntityFactory
                 Entity.Name.Imp, new WalkUnitCreater(
                     entityPrefab[Entity.Name.Imp],
                     pathTracker,
-                    (WalkUnitData)towerData[Entity.Name.Imp]
+                    entityData[Entity.Name.Imp]
+                )
+            },
+             {
+                Entity.Name.Knight, new WalkUnitCreater(
+                    entityPrefab[Entity.Name.Knight],
+                    pathTracker,
+                    entityData[Entity.Name.Knight]
+                )
+            },
+             {
+                Entity.Name.Nosedman, new WalkUnitCreater(
+                    entityPrefab[Entity.Name.Nosedman],
+                    pathTracker,
+                    entityData[Entity.Name.Nosedman]
                 )
             },
         };

@@ -649,6 +649,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3587623357632906149}
+  - component: {fileID: 291329721510461932}
+  - component: {fileID: 1419488969288818388}
   m_Layer: 0
   m_Name: Knight_Small
   m_TagString: Untagged
@@ -672,6 +674,42 @@ Transform:
   - {fileID: 6379534785509205597}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &291329721510461932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378571769135628119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 732befbdd70075e4e9b7237e02f67fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 6236514324043725950}
+--- !u!136 &1419488969288818388
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378571769135628119}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 3.0034928
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.4212147, z: 0}
 --- !u!1 &5433218445684421659
 GameObject:
   m_ObjectHideFlags: 0

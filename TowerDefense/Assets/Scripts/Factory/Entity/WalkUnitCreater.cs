@@ -6,12 +6,12 @@ using UnityEngine;
 public class WalkUnitCreater : EntityCreater
 {
     FlowField.PathTracker _pathTracker;
-    WalkUnitData _data;
+    EntityData _data;
 
     public WalkUnitCreater(
         GameObject entityPrefab,
         PathTracker pathTracker,
-        WalkUnitData data) : base(entityPrefab)
+        EntityData data) : base(entityPrefab)
     {
         _pathTracker = pathTracker;
         _data = data;
@@ -22,14 +22,16 @@ public class WalkUnitCreater : EntityCreater
         GameObject entityGO = Object.Instantiate(_entityPrefab);
         Entity entity = entityGO.GetComponent<Entity>();
 
+        WalkUnitData cloneData = (WalkUnitData)_data.Clone();
+
         entity.InjectStrategy(
             new NoDetectStrategy(),
             new NoAttackStrategy(),
             new MoveTowardsDestinationStrategy(
                 _pathTracker,
                 entityGO.transform,
-                _data.MoveSpeed,
-                _data.RotationSpeed
+                cloneData.MoveSpeed,
+                cloneData.RotationSpeed
             )
         );
 
@@ -40,7 +42,7 @@ public class WalkUnitCreater : EntityCreater
         entity.SetState(Entity.LifeState.Alive);
 
         IHealth health = entity.GetComponent<IHealth>();
-        health.SetHP(_data.MaxHp);
+        health.SetHP(cloneData.MaxHp);
 
         return entity;
     }

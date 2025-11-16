@@ -7,8 +7,10 @@ public interface IEffect
     [SerializeField]
     public enum Name
     {
-       FireEffect,
+       ExplosionEffect,
     }
+
+    public void Initialize();
 
     virtual void Play(Vector3 position) { }
     virtual void Play(Vector3 position, Quaternion quaternion) { }

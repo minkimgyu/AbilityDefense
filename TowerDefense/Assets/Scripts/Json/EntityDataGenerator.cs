@@ -81,6 +81,28 @@ public class EntityDataGenerator : BaseDataGenerator<Entity.Name>
                 );
                 break;
 
+            case Entity.Name.Knight:
+                entityData = new WalkUnitData
+                (
+                    name: Entity.Name.Knight,
+                    myType: ITarget.Type.Enemy,
+                    maxHp: new BuffValue<float>(0f, 100f, 30f),
+                    moveSpeed: new BuffValue<float>(0f, 100f, 1.5f),
+                    rotationSpeed: 300f
+                );
+                break;
+
+            case Entity.Name.Nosedman:
+                entityData = new WalkUnitData
+                (
+                    name: Entity.Name.Nosedman,
+                    myType: ITarget.Type.Enemy,
+                    maxHp: new BuffValue<float>(0f, 100f, 30f),
+                    moveSpeed: new BuffValue<float>(0f, 100f, 1.5f),
+                    rotationSpeed: 300f
+                );
+                break;
+
             default:
                 break;
         }

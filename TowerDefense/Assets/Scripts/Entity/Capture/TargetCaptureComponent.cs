@@ -36,6 +36,8 @@ public class TargetCaptureComponent : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         ITarget target = other.GetComponent<ITarget>();
+        if(target == null) return;
+
         bool isTarget = target.IsTarget(_targetTypes);
         if (isTarget)
         {
@@ -47,6 +49,8 @@ public class TargetCaptureComponent : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         ITarget target = other.GetComponent<ITarget>();
+        if (target == null) return;
+
         bool isTarget = target.IsTarget(_targetTypes);
         if (isTarget)
         {

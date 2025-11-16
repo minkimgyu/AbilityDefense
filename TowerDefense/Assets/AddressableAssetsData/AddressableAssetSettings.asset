@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 8be30c4dba2f86e4ea2ebee21fc8bb66
   m_currentHash:
     serializedVersion: 2
-    Hash: c7aa5ced54c39e64da254e553b2be959
+    Hash: 12e3269b59943e273c16f7d81aa976ba
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32ffc408505fd9743a022de82cc65f34, type: 2}
   - {fileID: 11400000, guid: 5d54b2b7cca6563459098b3b7ea21e95, type: 2}
   - {fileID: 11400000, guid: 2edf6d16fe37a3147a40f8edbb921354, type: 2}
+  - {fileID: 11400000, guid: e315f3bfa2eb1ed47b90694ee1ecdc45, type: 2}
   - {fileID: 11400000, guid: 17787e27ab6bfda4f84ac3df8d92bc42, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
@@ -100,6 +101,7 @@ MonoBehaviour:
     - EntityPrefab
     - LevelDesignJsonData
     - ProjectilePrefab
+    - EffectPrefab
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 345e85e7e779ce7499c83b44757cfc5b, type: 2}

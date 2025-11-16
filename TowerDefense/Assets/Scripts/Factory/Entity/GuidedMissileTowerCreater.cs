@@ -5,9 +5,9 @@ using UnityEngine;
 public class GuidedMissileTowerCreater : EntityCreater
 {
     ProjectileFactory _projectileFactory;
-    GuidedMissileTowerData _data;
+    EntityData _data;
 
-    public GuidedMissileTowerCreater(GameObject entityPrefab, GuidedMissileTowerData data, ProjectileFactory projectileFactory) : base(entityPrefab)
+    public GuidedMissileTowerCreater(GameObject entityPrefab, EntityData data, ProjectileFactory projectileFactory) : base(entityPrefab)
     {
         _projectileFactory = projectileFactory;
         _data = data;
@@ -18,22 +18,24 @@ public class GuidedMissileTowerCreater : EntityCreater
         GameObject entityGO = Object.Instantiate(_entityPrefab);
         Entity entity = entityGO.GetComponent<Entity>();
 
+        GuidedMissileTowerData cloneData = (GuidedMissileTowerData)_data.Clone();
+
         entity.InjectStrategy(
             new TargetDetectingStrategy(
-                _data.TargetTypes
+                cloneData.TargetTypes
             ),
             new FireMissileStrategy(
-                _data.ProjectileName,
-                _data.TargetTypes,
-                _data.ExplosionDamage,
-                _data.ExplosionRange,
-                _data.ProjectileSpeed,
-                _data.AttackRate,
+                cloneData.ProjectileName,
+                cloneData.TargetTypes,
+                cloneData.ExplosionDamage,
+                cloneData.ExplosionRange,
+                cloneData.ProjectileSpeed,
+                cloneData.AttackRate,
                 _projectileFactory
             ),
             new RotateToTargetStrategy
             (
-                _data.RotationSpeed
+                cloneData.RotationSpeed
             )
         );
 

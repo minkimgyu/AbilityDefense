@@ -10,6 +10,8 @@ public interface IProjectile
         Missile
     }
 
+    void InjectEffectFactory(EffectFactory effectFactory) { }
+
     void SetData(Missile.Data data) { }
     void SetData(Bullet.Data data) { }
 

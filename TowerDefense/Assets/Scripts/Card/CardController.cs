@@ -58,10 +58,10 @@ public class CardController : MonoBehaviour
 
     CardData.Name GetRandomCardName()
     {
-        //CardData.Name[] enums = (CardData.Name[])System.Enum.GetValues(typeof(CardData.Name));
-        //int randomIndex = Random.Range(0, enums.Length);
-        //return enums[randomIndex];
-        return CardData.Name.GuidedMissileTowerSpawnCard;
+        //CardData.Name[] enums = { CardData.Name.BulletTowerSpawnCard };
+        CardData.Name[] enums = { CardData.Name.GuidedMissileTowerSpawnCard, CardData.Name.BulletTowerSpawnCard };
+        int randomIndex = Random.Range(0, enums.Length);
+        return enums[randomIndex];
     }
 
     [ContextMenu("GenerateRandomCards")]

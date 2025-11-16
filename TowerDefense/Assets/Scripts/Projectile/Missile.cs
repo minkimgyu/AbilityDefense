@@ -30,9 +30,17 @@ public class Missile : MonoBehaviour, IProjectile
         public float Speed => speed;
     }
 
+    const float _effectYOffset = 1.5f;
     const float _hitDistance = 0.5f;
     const float _rotateSpeed = 300f;
     Data _data;
+
+    EffectFactory _effectFactory;
+
+    public void InjectEffectFactory(EffectFactory effectFactory)
+    {
+        _effectFactory = effectFactory;
+    }
 
     public void SetData(Missile.Data data) 
     {
@@ -98,6 +106,11 @@ public class Missile : MonoBehaviour, IProjectile
 
             hitDamageable.SetDamage(_data.Damage);
         }
+
+        IEffect effect = _effectFactory.Create(IEffect.Name.ExplosionEffect);
+
+        Vector3 spawnPos = transform.position + Vector3.up * _effectYOffset;
+        effect.Play(spawnPos);
 
         DestroySelf();
         return;

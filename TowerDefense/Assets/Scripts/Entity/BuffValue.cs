@@ -1,5 +1,5 @@
+﻿using Newtonsoft.Json;
 using System;
-using Newtonsoft.Json;
 
 [Serializable]
 public class BuffValue<T> where T : struct, IComparable<T>
@@ -49,6 +49,14 @@ public class BuffValue<T> where T : struct, IComparable<T>
         _min = min;
         _max = max;
         _current = ClampValue(initial);
+    }
+
+    // 🔥 깊은 복사 생성자 추가
+    public BuffValue(BuffValue<T> other)
+    {
+        _min = other._min;
+        _max = other._max;
+        _current = other._current;
     }
 
     private T ClampValue(T value)

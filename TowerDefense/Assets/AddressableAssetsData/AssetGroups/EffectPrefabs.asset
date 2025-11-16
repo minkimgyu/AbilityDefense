@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: EffectPrefabs
+  m_EditorClassIdentifier: 
+  m_GroupName: EffectPrefabs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f23d8d65d075daf40b08e42db0d15427
+  m_SerializeEntries:
+  - m_GUID: 47e12818154799147a9cee0ef1114222
+    m_Address: ExplosionEffect
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EffectPrefab
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6756547cc8410e04ba290c3f5c070e42, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 43f819735b4bd2a4c9912764eacec22d, type: 2}
+    - {fileID: 11400000, guid: 1ac1637dc3bb43f40ae5ef57009aa7f6, type: 2}
